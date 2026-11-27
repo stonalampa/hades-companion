@@ -26,9 +26,10 @@ var gods = []struct{ Loot, Name string }{
 	{"DionysusUpgrade", "Dionysus"}, {"DemeterUpgrade", "Demeter"}, {"HermesUpgrade", "Hermes"},
 }
 
-var slotSuffixes = []struct{ Suffix, Slot string }{
-	{"WeaponTrait", "attack"}, {"SecondaryTrait", "special"}, {"RangedTrait", "cast"},
-	{"RushTrait", "dash"}, {"ShoutTrait", "call"},
+// TraitData's Slot -> our slot. Hermes' WeaponTrait/SecondaryTrait have no Slot:
+// they stack with the Attack/Special boon instead of replacing it.
+var gameSlots = map[string]string{
+	"Melee": "attack", "Secondary": "special", "Ranged": "cast", "Rush": "dash", "Shout": "call",
 }
 
 // Load order matters: helper tables first, then the data we read.
@@ -175,7 +176,8 @@ func buildBoons(traits, loot map[string]any, weapons []Weapon) ([]Boon, []string
 				bt, _ := traits[base].(map[string]any)
 				icon, _ = bt["Icon"].(string)
 			}
-			b = &Boon{ID: id, Kind: kindOf(t), Slot: slotOf(id), Icon: icon}
+			slot, _ := t["Slot"].(string)
+			b = &Boon{ID: id, Kind: kindOf(t), Slot: gameSlots[slot], Icon: icon}
 			if ov, ok := t["TraitDependencyTextOverrides"].(map[string]any); ok {
 				b.TextOverrides = map[string]string{}
 				for aspect, v := range ov {
@@ -314,15 +316,6 @@ func kindOf(t map[string]any) string {
 		return "legendary"
 	}
 	return "standard"
-}
-
-func slotOf(id string) string {
-	for _, s := range slotSuffixes {
-		if strings.HasSuffix(id, s.Suffix) {
-			return s.Slot
-		}
-	}
-	return ""
 }
 
 // Achievements with any of these requirements are earned during a run.

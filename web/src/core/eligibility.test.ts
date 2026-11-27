@@ -71,6 +71,15 @@ describe('dataset integrity', () => {
     expect(count('duo')).toBe(28)
     expect(count('legendary')).toBe(11)
   })
+
+  it('takes slots from the game, not from id suffixes', () => {
+    // Swift Strike / Swift Flourish stack with the Attack/Special boon; Heaven's Vengeance is a revenge boon.
+    for (const id of ['HermesWeaponTrait', 'HermesSecondaryTrait', 'RetaliateWeaponTrait']) {
+      expect(byId.get(id)?.slot).toBeUndefined()
+    }
+    expect(byId.get('DionysusWeaponTrait')?.slot).toBe('attack')
+    expect(dataset.boons.filter((b) => b.kind === 'slot').length).toBe(46)
+  })
 })
 
 describe('unlocks index', () => {
