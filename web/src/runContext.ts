@@ -8,6 +8,8 @@ export interface RunCtx {
   text: TextMap
   build: BoonId[]
   owned: ReadonlySet<BoonId>
+  /** Gods still offerable once the four-god limit is reached; undefined = any. */
+  pool?: ReadonlySet<string>
   targets: BoonId[]
   name: (id: BoonId) => string
   add: (id: BoonId) => void

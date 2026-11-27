@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { evaluate, needsOtherAspect } from './core/eligibility'
+import { evaluate, needsOtherAspect, outOfPool } from './core/eligibility'
 import { boonsNeeded } from './core/graph'
 import type { Boon, BoonId } from './core/types'
 import { byId, cleanDescription, textFor, unlocks } from './data'
@@ -10,7 +10,7 @@ const MAX_DEPTH = 3
 
 /** "How to get it" for one boon: prerequisite tree plus what it leads to. */
 export function Detail({ id, onClose }: { id: BoonId; onClose: () => void }) {
-  const { owned, text, name, add, targets, toggleTarget } = useRunCtx()
+  const { owned, pool, text, name, add, targets, toggleTarget } = useRunCtx()
   const ref = useRef<HTMLElement>(null)
   const boon = byId.get(id)
 
@@ -22,7 +22,7 @@ export function Detail({ id, onClose }: { id: BoonId; onClose: () => void }) {
   }, [id, onClose])
 
   if (!boon) return null
-  const status = evaluate(boon, owned)
+  const status = evaluate(boon, owned, pool)
   const leads = [...(unlocks.get(id) ?? [])].sort((a, b) => name(a).localeCompare(name(b)))
   const pinned = targets.includes(id)
 
@@ -35,13 +35,15 @@ export function Detail({ id, onClose }: { id: BoonId; onClose: () => void }) {
         <span className="muted">
           {[boon.gods.join(' × '), boon.slot].filter(Boolean).join(' · ')} —{' '}
           {status.kind === 'blocked'
-            ? `not offered while you have ${name(status.by)}`
-            : statusText(status, boonsNeeded(id, owned, byId))}
+            ? status.by
+              ? `not offered while you have ${name(status.by)}`
+              : `${status.god} can't join: the run already has four gods`
+            : statusText(status, boonsNeeded(id, owned, byId, pool))}
         </span>
         <span className="actions">
           {status.kind !== 'owned' && status.kind !== 'blocked' && boon.kind !== 'aspect' && (
             <button className="ghost" onClick={() => add(id)}>
-              I took it
+              {boon.kind === 'keepsake' ? 'Equip' : 'I took it'}
             </button>
           )}
           <button className={`ghost ${pinned ? 'active' : ''}`} onClick={() => toggleTarget(id)}>
@@ -95,7 +97,7 @@ export function Detail({ id, onClose }: { id: BoonId; onClose: () => void }) {
           <ul className="leads">
             {leads.map((l) => (
               <li key={l}>
-                <StatusMark status={evaluate(byId.get(l)!, owned)} />
+                <StatusMark status={evaluate(byId.get(l)!, owned, pool)} />
                 <Kind kind={byId.get(l)!.kind} />
                 <BoonLabel id={l} />
               </li>
@@ -112,7 +114,7 @@ export function Detail({ id, onClose }: { id: BoonId; onClose: () => void }) {
  * themselves blocked expand into their own requirements.
  */
 function ReqTree({ boon, depth, trail }: { boon: Boon; depth: number; trail: BoonId[] }) {
-  const { owned } = useRunCtx()
+  const { owned, pool } = useRunCtx()
   const sets = boon.requires ?? []
   return (
     <div className="req">
@@ -127,9 +129,9 @@ function ReqTree({ boon, depth, trail }: { boon: Boon; depth: number; trail: Boo
             <ul>
               {set.map((id) => {
                 const opt = byId.get(id)
-                // Options tied to an aspect you didn't pick are noise in this run.
-                if (!opt || needsOtherAspect(opt, owned, byId)) return null
-                const s = evaluate(opt, owned)
+                // Options tied to an aspect you didn't pick, or to a god past the limit, are noise in this run.
+                if (!opt || needsOtherAspect(opt, owned, byId) || outOfPool(opt, pool)) return null
+                const s = evaluate(opt, owned, pool)
                 const expand =
                   !done && (s.kind === 'oneAway' || s.kind === 'far') && depth < MAX_DEPTH && !trail.includes(id)
                 return (

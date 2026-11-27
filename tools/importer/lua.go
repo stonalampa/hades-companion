@@ -11,8 +11,8 @@ import (
 )
 
 // loadGlobals runs the given data scripts in one Lua state and returns the
-// requested global tables converted to plain Go values.
-func loadGlobals(scriptsDir string, files []string, globals []string) (map[string]map[string]any, error) {
+// requested global tables converted to plain Go values (map or slice).
+func loadGlobals(scriptsDir string, files []string, globals []string) (map[string]any, error) {
 	L := lua.NewState()
 	defer L.Close()
 
@@ -39,18 +39,16 @@ func loadGlobals(scriptsDir string, files []string, globals []string) (map[strin
 		}
 	}
 
-	out := make(map[string]map[string]any, len(globals))
+	out := make(map[string]any, len(globals))
 	for _, name := range globals {
 		v := L.GetGlobal(name)
 		t, ok := v.(*lua.LTable)
 		if !ok {
 			return nil, fmt.Errorf("global %s is %s, want table", name, v.Type())
 		}
-		m, ok := toGo(t, 0).(map[string]any)
-		if !ok {
+		if out[name] = toGo(t, 0); out[name] == nil {
 			return nil, fmt.Errorf("global %s is not a data table", name)
 		}
-		out[name] = m
 	}
 	return out, nil
 }

@@ -1,16 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { addBoon, evaluate, needsOtherAspect, possible, type Status } from './core/eligibility'
+import { evaluate, godPool, needsOtherAspect, outOfPool, possible, type Status } from './core/eligibility'
 import { boonsNeeded } from './core/graph'
 import type { Boon, BoonId, Slot } from './core/types'
 import { Detail } from './Detail'
 import { achievementName, boonName, byId, dataset, loadAchievementText, loadText, type TextMap } from './data'
-import { BoonIcon, BoonLabel, CostNote, Kind, OptionChip, RemoveButton, StatusMark } from './ui'
+import { BoonIcon, BoonLabel, CostNote, GodDots, Kind, OptionChip, RemoveButton, StatusMark } from './ui'
 import { RunContext, statusText, useRunCtx, type RunCtx } from './runContext'
 import { useRun } from './useRun'
 import { useAchievements } from './useAchievements'
 import { useServerSync } from './useServerSync'
 import { Achievements } from './Achievements'
 import { countingTraits } from './core/achievements'
+import { dropBoon, heldIds, runGods, takeBoon } from './core/run'
 
 const SLOTS: Slot[] = ['attack', 'special', 'cast', 'dash', 'call']
 const KIND_ORDER: Record<Boon['kind'], number> = { legendary: 0, duo: 1, standard: 2, slot: 3, keepsake: 4, aspect: 5 }
@@ -19,7 +20,7 @@ type Evaluated = { boon: Boon; status: Status }
 const byKind = (a: Evaluated, b: Evaluated) => KIND_ORDER[a.boon.kind] - KIND_ORDER[b.boon.kind]
 
 export default function App() {
-  const { run, setBoons, toggleTarget, setAspect, reset, replace } = useRun()
+  const { run, update, toggleTarget, setAspect, setKeepsake, reset, replace } = useRun()
   const [text, setText] = useState<TextMap>({})
   const [focused, setFocused] = useState<BoonId | null>(null)
   const [view, setView] = useView()
@@ -35,23 +36,28 @@ export default function App() {
     loadText().then(setText)
   }, [])
 
-  // The chosen aspect counts as held: it satisfies Beowulf casts and blocks others.
-  const owned = useMemo(() => new Set(run.aspect ? [...run.boons, run.aspect] : run.boons), [run.boons, run.aspect])
+  // The chosen aspect and keepsake count as held: the aspect satisfies Beowulf casts
+  // and blocks others, Lambent Plume satisfies Hermes boons.
+  const owned = useMemo(() => heldIds(run), [run])
+  const gods = useMemo(() => runGods(run, byId), [run])
+  const pool = useMemo(() => godPool(gods), [gods])
   const targets = run.targets ?? []
   const ctx: RunCtx = {
     text,
     build: run.boons,
     owned,
+    pool,
     targets,
     name: (id) => boonName(id, text, owned),
     add: (id) => {
       const b = byId.get(id)
-      if (b) setBoons(addBoon(run.boons, b, byId))
+      if (b?.kind === 'keepsake') setKeepsake(id)
+      else if (b) update((r) => takeBoon(r, b, byId))
     },
     focus: setFocused,
     toggleTarget,
   }
-  const remove = (id: BoonId) => setBoons(run.boons.filter((x) => x !== id))
+  const remove = (id: BoonId) => update((r) => dropBoon(r, id, byId))
   const closeDetail = useCallback(() => setFocused(null), [])
 
   const evaluated = useMemo(
@@ -59,9 +65,9 @@ export default function App() {
       dataset.boons
         // Aspect-only requirements (Beowulf casts) are not interesting prerequisites.
         .filter((b) => b.requires?.some((set) => set.some((id) => byId.get(id)?.kind !== 'aspect')))
-        .filter((b) => possible(b, owned, byId))
-        .map((boon) => ({ boon, status: evaluate(boon, owned) })),
-    [owned],
+        .filter((b) => possible(b, owned, byId, pool))
+        .map((boon) => ({ boon, status: evaluate(boon, owned, pool) })),
+    [owned, pool],
   )
   const eligible = evaluated.filter((e) => e.status.kind === 'eligible').sort(byKind)
   // Only targets you've started on: a god you already have in the build.
@@ -73,7 +79,7 @@ export default function App() {
         (e.boon.kind === 'duo' || e.boon.kind === 'legendary') &&
         e.boon.gods.some((g) => ownedGods.has(g)) &&
         !targets.includes(e.boon.id) &&
-        e.status.missing.some((id) => possible(byId.get(id)!, owned, byId)),
+        e.status.missing.some((id) => possible(byId.get(id)!, owned, byId, pool)),
     )
     .sort(byKind)
   const otherBoons = run.boons.filter((id) => !byId.get(id)?.slot)
@@ -119,7 +125,12 @@ export default function App() {
           <Achievements manual={achievements.done} steam={steam} toggle={achievements.toggle} text={achText} />
         ) : (
           <>
-            <AspectPicker aspect={run.aspect} onChange={setAspect} />
+            <GodsLine gods={gods} full={!!pool} />
+
+            <div className="pickers">
+              <AspectPicker aspect={run.aspect} onChange={setAspect} />
+              <KeepsakePicker keepsake={run.keepsake} onChange={setKeepsake} />
+            </div>
 
             <Search onPick={ctx.add} onShow={setFocused} />
 
@@ -184,14 +195,14 @@ export default function App() {
                       {targets.map((id) => {
                         const b = byId.get(id)
                         if (!b) return null
-                        const s = evaluate(b, owned)
+                        const s = evaluate(b, owned, pool)
                         return (
                           <li key={id} className="stacked target">
                             <div className="row">
                               <StatusMark status={s} />
                               <Kind kind={b.kind} />
                               <BoonLabel id={id} />
-                              <span className="muted small">{statusText(s, boonsNeeded(id, owned, byId))}</span>
+                              <span className="muted small">{statusText(s, boonsNeeded(id, owned, byId, pool))}</span>
                               <RemoveButton onClick={() => toggleTarget(id)} />
                             </div>
                             {s.kind === 'oneAway' && (
@@ -270,7 +281,7 @@ export default function App() {
 
 /** Enter adds the boon, Shift+Enter shows how to get it. */
 function Search({ onPick, onShow }: { onPick: (id: BoonId) => void; onShow: (id: BoonId) => void }) {
-  const { text, owned } = useRunCtx()
+  const { text, owned, pool } = useRunCtx()
   const [q, setQ] = useState('')
   const [sel, setSel] = useState(0)
   const ref = useRef<HTMLInputElement>(null)
@@ -324,7 +335,7 @@ function Search({ onPick, onShow }: { onPick: (id: BoonId) => void; onShow: (id:
           if (e.key === 'ArrowDown') setSel((s) => Math.min(s + 1, results.length - 1))
           else if (e.key === 'ArrowUp') setSel((s) => Math.max(s - 1, 0))
           else if (e.key === 'Enter' && hit) {
-            if (e.shiftKey || owned.has(hit.id) || evaluate(hit, owned).kind === 'blocked') onShow(hit.id)
+            if (e.shiftKey || owned.has(hit.id) || evaluate(hit, owned, pool).kind === 'blocked') onShow(hit.id)
             else onPick(hit.id)
             done()
           } else if (e.key === 'Escape') setQ('')
@@ -339,7 +350,7 @@ function Search({ onPick, onShow }: { onPick: (id: BoonId) => void; onShow: (id:
               <button
                 className="result-main"
                 onMouseDown={() => {
-                  if (owned.has(b.id) || evaluate(b, owned).kind === 'blocked') onShow(b.id)
+                  if (owned.has(b.id) || evaluate(b, owned, pool).kind === 'blocked') onShow(b.id)
                   else onPick(b.id)
                   done()
                 }}
@@ -349,8 +360,8 @@ function Search({ onPick, onShow }: { onPick: (id: BoonId) => void; onShow: (id:
                 <span className="tag">{b.slot ?? b.kind}</span>
                 {owned.has(b.id) ? (
                   <span className="mark owned">✓</span>
-                ) : evaluate(b, owned).kind === 'blocked' ? (
-                  <span className="warn">not offered with your build</span>
+                ) : evaluate(b, owned, pool).kind === 'blocked' ? (
+                  <span className="warn">{outOfPool(b, pool) ? 'four gods already' : 'not offered with your build'}</span>
                 ) : (
                   <CostNote boon={b} />
                 )}
@@ -397,6 +408,38 @@ function AspectPicker({ aspect, onChange }: { aspect?: BoonId; onChange: (a: Boo
           {name(a).replace(/^Aspect of /, '')}
         </button>
       ))}
+    </div>
+  )
+}
+
+/** Olympians in this run; at four, no other god (except Hermes) can appear. */
+function GodsLine({ gods, full }: { gods: ReadonlySet<string>; full: boolean }) {
+  if (gods.size === 0) return null
+  return (
+    <p className="gods-line small">
+      <GodDots gods={[...gods]} />
+      <span className={full ? 'warn' : 'muted'}>
+        {[...gods].join(', ')} — {gods.size}/4 gods
+        {full ? ': only these (and Hermes) can appear now' : ''}
+      </span>
+    </p>
+  )
+}
+
+/** Equipped keepsake; swap it here when you change it between biomes. */
+function KeepsakePicker({ keepsake, onChange }: { keepsake?: BoonId; onChange: (k: BoonId | undefined) => void }) {
+  const { name } = useRunCtx()
+  return (
+    <div className="keepsake-picker">
+      {keepsake && <BoonIcon key={keepsake} id={keepsake} gods={[]} size={28} />}
+      <select value={keepsake ?? ''} onChange={(e) => onChange(e.target.value || undefined)}>
+        <option value="">Keepsake…</option>
+        {dataset.keepsakes.map((k) => (
+          <option key={k} value={k}>
+            {name(k)}
+          </option>
+        ))}
+      </select>
     </div>
   )
 }

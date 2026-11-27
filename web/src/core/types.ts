@@ -59,6 +59,8 @@ export interface Dataset {
   sources: Record<string, string>
   weapons: Weapon[]
   boons: Boon[]
+  /** Keepsake IDs in the game's rack order (each is also a boon of kind keepsake). */
+  keepsakes: BoonId[]
   achievements: Achievement[]
 }
 
@@ -76,4 +78,11 @@ export interface Run {
   targets?: BoonId[]
   /** Chosen aspect (its weapon follows from it); kept for the next run. */
   aspect?: BoonId
+  /** Equipped keepsake; swappable between biomes, kept for the next run. */
+  keepsake?: BoonId
+  /**
+   * Olympians a boon was taken from this run, Hermes excluded. The game counts
+   * them toward the four-god limit even after their boon is replaced.
+   */
+  gods?: string[]
 }

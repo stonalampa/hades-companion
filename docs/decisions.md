@@ -7,6 +7,8 @@ Short record of what was decided and why. Details and evidence: [discovery.md](d
 - **A mid-run helper, not a wiki.** The main screen is the current run: type a boon, see which Duo/Legendary boons are eligible now and which are one boon away, with a warning when a slot boon would replace (and break) something you have. Lookup ("how do I get Merciful End?") is one keystroke away.
 - **Hades I first.** The schema is game-scoped so Hades II can follow without forcing its mechanics into Hades I terms.
 - **Eligibility, never promises.** The game decides what it offers; the app only says what *can* be offered.
+- **Keepsake is a pick, not a boon** (2026-11-27). One is equipped at a time and can be swapped between biomes, like the aspect it counts as held. Older runs that held a keepsake in the build are migrated.
+- **Four-god limit** (2026-11-27). The game offers boons from at most four Olympians per run (`ReachedMaxGods` in `RunManager.lua`, `maxLootTypes = 4`); Hermes has `GodLoot = false` and doesn't count. The run keeps a history of gods taken because the game counts a god even after its boon is replaced; removing a boon by hand is treated as a correction and forgets its god.
 - **No save-file import (for now).** It would mostly duplicate the in-game Codex; achievements come from Steam or manual marks.
 
 ## Data

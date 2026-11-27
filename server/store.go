@@ -17,6 +17,10 @@ type Run struct {
 	Boons     []string `json:"boons"`
 	Targets   []string `json:"targets,omitempty"`
 	Aspect    string   `json:"aspect,omitempty"`
+	Keepsake  string   `json:"keepsake,omitempty"`
+	// Gods a boon was taken from this run (Hermes excluded), kept after the
+	// boon is replaced: the game counts them toward the four-god limit.
+	Gods []string `json:"gods,omitempty"`
 }
 
 // State is everything the frontend syncs: one player, one file.
@@ -88,11 +92,26 @@ func (st State) done() set {
 	return setOf(append(append([]string{}, st.Achievements...), st.SteamAchievements...)...)
 }
 
-// owned is the build plus the aspect, which counts as held.
+// owned is the build plus the aspect and keepsake, which count as held.
+// Same as heldIds in web/src/core/run.ts.
 func (st State) owned() set {
 	o := setOf(st.Run.Boons...)
-	if st.Run.Aspect != "" {
-		o[st.Run.Aspect] = true
+	for _, id := range []string{st.Run.Aspect, st.Run.Keepsake} {
+		if id != "" {
+			o[id] = true
+		}
 	}
 	return o
+}
+
+// pool: gods still offerable under the four-god limit (nil = any).
+// History plus the build, as runGods in web/src/core/run.ts.
+func (st State) pool(d *Dataset) set {
+	gods := append([]string{}, st.Run.Gods...)
+	for _, id := range st.Run.Boons {
+		if b := d.byID[id]; b != nil {
+			gods = append(gods, b.Gods...)
+		}
+	}
+	return godPool(gods)
 }

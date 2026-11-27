@@ -33,7 +33,7 @@ var gameSlots = map[string]string{
 }
 
 // Load order matters: helper tables first, then the data we read.
-var sourceFiles = []string{"WeaponSets.lua", "TraitData.lua", "LootData.lua", "AchievementData.lua", "WeaponUpgradeData.lua"}
+var sourceFiles = []string{"WeaponSets.lua", "TraitData.lua", "LootData.lua", "AchievementData.lua", "WeaponUpgradeData.lua", "GiftData.lua"}
 
 type Boon struct {
 	ID   string   `json:"id"`
@@ -66,11 +66,13 @@ type Achievement struct {
 }
 
 type Dataset struct {
-	Game         string            `json:"game"`
-	Sources      map[string]string `json:"sources"` // file -> sha256
-	Weapons      []Weapon          `json:"weapons"`
-	Boons        []Boon            `json:"boons"`
-	Achievements []Achievement     `json:"achievements"`
+	Game    string            `json:"game"`
+	Sources map[string]string `json:"sources"` // file -> sha256
+	Weapons []Weapon          `json:"weapons"`
+	Boons   []Boon            `json:"boons"`
+	// Keepsakes in the game's rack order; each is also a boon of kind keepsake.
+	Keepsakes    []string      `json:"keepsakes"`
+	Achievements []Achievement `json:"achievements"`
 }
 
 func main() {
@@ -80,21 +82,26 @@ func main() {
 	flag.Parse()
 
 	scripts := filepath.Join(*gameDir, "Scripts")
-	g, err := loadGlobals(scripts, sourceFiles, []string{"TraitData", "LootData", "GameData", "WeaponUpgradeData"})
+	g, err := loadGlobals(scripts, sourceFiles, []string{"TraitData", "LootData", "GameData", "WeaponUpgradeData", "GiftOrdering"})
 	if err != nil {
 		log.Fatal(err)
 	}
-	traits, loot := g["TraitData"], g["LootData"]
-	achData, _ := g["GameData"]["AchievementData"].(map[string]any)
+	traits, _ := g["TraitData"].(map[string]any)
+	loot, _ := g["LootData"].(map[string]any)
+	gameData, _ := g["GameData"].(map[string]any)
+	achData, _ := gameData["AchievementData"].(map[string]any)
+	upgrades, _ := g["WeaponUpgradeData"].(map[string]any)
 
-	weapons, warnings := buildWeapons(g["WeaponUpgradeData"])
-	boons, w := buildBoons(traits, loot, weapons)
+	weapons, warnings := buildWeapons(upgrades)
+	keepsakes := buildKeepsakes(g["GiftOrdering"])
+	boons, w := buildBoons(traits, loot, weapons, keepsakes)
 	warnings = append(warnings, w...)
 	ds := Dataset{
 		Game:         "hades1",
 		Sources:      hashes(scripts),
 		Weapons:      weapons,
 		Boons:        boons,
+		Keepsakes:    keepsakes,
 		Achievements: buildAchievements(achData),
 	}
 
@@ -147,7 +154,13 @@ func main() {
 	report(ds, boonText, warnings)
 }
 
-func buildBoons(traits, loot map[string]any, weapons []Weapon) ([]Boon, []string) {
+// buildKeepsakes: GiftOrdering lists keepsakes in rack order, then companions
+// (Mort's Battie etc.), which go in a separate slot and are left out.
+func buildKeepsakes(ordering any) []string {
+	return slices.DeleteFunc(strings_(ordering), func(id string) bool { return strings.HasSuffix(id, "AssistTrait") })
+}
+
+func buildBoons(traits, loot map[string]any, weapons []Weapon, keepsakes []string) ([]Boon, []string) {
 	var warnings []string
 	byID := map[string]*Boon{}
 
@@ -234,6 +247,18 @@ func buildBoons(traits, loot map[string]any, weapons []Weapon) ([]Boon, []string
 			icon, _ := t["Icon"].(string)
 			byID[id] = &Boon{ID: id, Kind: "aspect", Gods: []string{}, Weapon: w.ID, Icon: icon}
 		}
+	}
+
+	// Keepsakes: one is equipped at a time and can be swapped between biomes.
+	// A few satisfy prerequisites (Lambent Plume, Conch Shell).
+	for _, id := range keepsakes {
+		t, _ := traits[id].(map[string]any)
+		if t == nil {
+			warnings = append(warnings, "keepsake not in TraitData: "+id)
+			continue
+		}
+		icon, _ := t["Icon"].(string)
+		byID[id] = &Boon{ID: id, Kind: "keepsake", Gods: []string{}, Icon: icon}
 	}
 
 	var calls []string

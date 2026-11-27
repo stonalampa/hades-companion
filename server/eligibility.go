@@ -17,8 +17,10 @@ func setOf(ids ...string) set {
 
 // Status kinds: owned, blocked, free, eligible, oneAway, far.
 type Status struct {
-	Kind        string   `json:"kind"`
-	BlockedBy   string   `json:"blockedBy,omitempty"`
+	Kind      string `json:"kind"`
+	BlockedBy string `json:"blockedBy,omitempty"`
+	// BlockedGod: the god can't join the run (four-god limit).
+	BlockedGod  string   `json:"blockedGod,omitempty"`
 	Missing     []string `json:"missing,omitempty"`     // oneAway: any one of these completes it
 	Unsatisfied int      `json:"unsatisfied,omitempty"` // far: open requirement sets
 }
@@ -42,7 +44,42 @@ func anyOwned(ids []string, owned set) bool {
 	return false
 }
 
-func (d *Dataset) evaluate(b *Boon, owned set) Status {
+// Gods outside the god limit: they don't count toward it and can always come.
+var unlimitedGods = setOf("Hermes")
+
+const maxGods = 4
+
+// godPool: the game offers boons from at most four Olympians per run
+// (ReachedMaxGods in RunManager.lua); Hermes doesn't count. Returns the gods
+// still offerable, or nil while any can. Same as godPool in eligibility.ts.
+func godPool(gods []string) set {
+	limited := set{}
+	for _, g := range gods {
+		if !unlimitedGods[g] {
+			limited[g] = true
+		}
+	}
+	if len(limited) < maxGods {
+		return nil
+	}
+	return limited
+}
+
+// outOfPool: a god of b that can no longer join the run, or "".
+func outOfPool(b *Boon, pool set) string {
+	if pool == nil {
+		return ""
+	}
+	for _, g := range b.Gods {
+		if !unlimitedGods[g] && !pool[g] {
+			return g
+		}
+	}
+	return ""
+}
+
+// evaluate: pool from godPool, nil = no god limit yet.
+func (d *Dataset) evaluate(b *Boon, owned, pool set) Status {
 	if owned[b.ID] {
 		return Status{Kind: "owned"}
 	}
@@ -50,6 +87,9 @@ func (d *Dataset) evaluate(b *Boon, owned set) Status {
 		if owned[x] {
 			return Status{Kind: "blocked", BlockedBy: x}
 		}
+	}
+	if g := outOfPool(b, pool); g != "" {
+		return Status{Kind: "blocked", BlockedGod: g}
 	}
 	if len(b.Requires) == 0 {
 		return Status{Kind: "free"}
@@ -80,16 +120,19 @@ func (d *Dataset) needsOtherAspect(b *Boon, owned set) bool {
 	return false
 }
 
-func (d *Dataset) possible(b *Boon, owned set) bool {
-	return d.evaluate(b, owned).Kind != "blocked" && !d.needsOtherAspect(b, owned)
+func (d *Dataset) possible(b *Boon, owned, pool set) bool {
+	return d.evaluate(b, owned, pool).Kind != "blocked" && !d.needsOtherAspect(b, owned)
 }
 
 // boonsNeeded: fewest boons still to pick up before id is eligible, following
-// prerequisites of prerequisites. Infinity when blocked or unreachable.
-func (d *Dataset) boonsNeeded(id string, owned set, trail []string) float64 {
+// prerequisites of prerequisites. Infinity when blocked, past the god limit or unreachable.
+func (d *Dataset) boonsNeeded(id string, owned, pool set, trail []string) float64 {
 	b := d.byID[id]
-	if b == nil {
+	if b == nil || outOfPool(b, pool) != "" {
 		return math.Inf(1)
+	}
+	if owned[id] {
+		return 0
 	}
 	for _, x := range b.ExcludedBy {
 		if owned[x] {
@@ -106,7 +149,7 @@ func (d *Dataset) boonsNeeded(id string, owned set, trail []string) float64 {
 			if opt == id || contains(trail, opt) || (d.byID[opt] != nil && d.byID[opt].Kind == "aspect") {
 				continue
 			}
-			best = math.Min(best, 1+d.boonsNeeded(opt, owned, append(append([]string{}, trail...), id)))
+			best = math.Min(best, 1+d.boonsNeeded(opt, owned, pool, append(append([]string{}, trail...), id)))
 		}
 		total += best
 	}

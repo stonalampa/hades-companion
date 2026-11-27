@@ -2,6 +2,7 @@
   "game": "hades1",
   "sources": {
     "AchievementData.lua": "90ad42d916e4a9e71b27df69a88e4ed64a5560fe2e62f96b5e0d7b8e7baf261b",
+    "GiftData.lua": "e5da8af1a84ebce5edf7065e371d6aa3dc8583081541a7c0cd3e8a79620c69fd",
     "LootData.lua": "20081ab6f36c04e1ed0091fe67336d3662b35168179a77d309573e2af5ff7595",
     "TraitData.lua": "ddb690ad6274550bf5103d8875b5ca9063b5bb9fe8a6c08d3e011f7746338d18",
     "WeaponSets.lua": "2672ff2c4ab332b1e43645a26d9dcd95a46e385ec4367ef1511253e9986b73b7",
@@ -689,6 +690,12 @@
       ]
     },
     {
+      "id": "BackstabAlphaStrikeTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Shawl"
+    },
+    {
       "id": "BlizzardOrbTrait",
       "gods": [
         "Poseidon",
@@ -737,6 +744,12 @@
       ],
       "kind": "standard",
       "icon": "Boon_Hermes_01"
+    },
+    {
+      "id": "BonusMoneyTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Purse"
     },
     {
       "id": "BossDamageTrait",
@@ -827,6 +840,18 @@
       ],
       "kind": "standard",
       "icon": "Boon_Hermes_14"
+    },
+    {
+      "id": "ChamberStackTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Bloom"
+    },
+    {
+      "id": "ChaosBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Egg"
     },
     {
       "id": "CharmTrait",
@@ -1182,11 +1207,23 @@
       "icon": "Boon_Dionysus_01"
     },
     {
+      "id": "DirectionalArmorTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Bracer"
+    },
+    {
       "id": "DislodgeAmmoTrait",
       "gods": [],
       "kind": "aspect",
       "icon": "WeaponEnchantment_Sword02",
       "weapon": "SwordWeapon"
+    },
+    {
+      "id": "DistanceDamageTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Memory"
     },
     {
       "id": "DodgeChanceTrait",
@@ -1298,10 +1335,52 @@
       "weapon": "FistWeapon"
     },
     {
+      "id": "ForceAphroditeBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Rose"
+    },
+    {
+      "id": "ForceAresBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Vial"
+    },
+    {
+      "id": "ForceArtemisBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Arrowhead"
+    },
+    {
+      "id": "ForceAthenaBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Pendant"
+    },
+    {
+      "id": "ForceDemeterBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Cornucopia"
+    },
+    {
+      "id": "ForceDionysusBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Goblet"
+    },
+    {
       "id": "ForcePoseidonBoonTrait",
       "gods": [],
       "kind": "keepsake",
       "icon": "Keepsake_Conch"
+    },
+    {
+      "id": "ForceZeusBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Signet"
     },
     {
       "id": "FountainDamageBonusTrait",
@@ -1338,6 +1417,12 @@
       "kind": "aspect",
       "icon": "WeaponEnchantment_Gun03",
       "weapon": "GunWeapon"
+    },
+    {
+      "id": "HadesShoutKeepsake",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Badge"
     },
     {
       "id": "HealthRewardBonusTrait",
@@ -1567,6 +1652,12 @@
       "icon": "Boon_Ares_14"
     },
     {
+      "id": "LifeOnUrnTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Duster"
+    },
+    {
       "id": "LightningCloudTrait",
       "gods": [
         "Zeus",
@@ -1585,6 +1676,12 @@
           "DionysusRangedTrait"
         ]
       ]
+    },
+    {
+      "id": "LowHealthDamageTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Earring"
     },
     {
       "id": "LowHealthDefenseTrait",
@@ -1609,6 +1706,12 @@
         ]
       ],
       "mirror": "AmmoMetaUpgrade"
+    },
+    {
+      "id": "MaxHealthKeepsakeTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Collar"
     },
     {
       "id": "MaximumChillBlast",
@@ -1730,6 +1833,12 @@
           "ZeusShoutTrait"
         ]
       ]
+    },
+    {
+      "id": "PerfectClearDamageBonusTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Butterfly"
     },
     {
       "id": "PerfectDashBoltTrait",
@@ -2024,6 +2133,12 @@
       ]
     },
     {
+      "id": "ReincarnationTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Skelly_Tooth"
+    },
+    {
       "id": "RetaliateWeaponTrait",
       "gods": [
         "Zeus"
@@ -2079,11 +2194,23 @@
       ]
     },
     {
+      "id": "ShieldAfterHitTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Spear"
+    },
+    {
       "id": "ShieldBaseUpgradeTrait",
       "gods": [],
       "kind": "aspect",
       "icon": "WeaponEnchantment_Shield01",
       "weapon": "ShieldWeapon"
+    },
+    {
+      "id": "ShieldBossTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Acorn"
     },
     {
       "id": "ShieldHitTrait",
@@ -2202,6 +2329,12 @@
       "kind": "aspect",
       "icon": "WeaponEnchantment_Shield02",
       "weapon": "ShieldWeapon"
+    },
+    {
+      "id": "ShopDurationTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Hourglass"
     },
     {
       "id": "SlamExplosionTrait",
@@ -2438,6 +2571,12 @@
       "mirror": "ReloadAmmoMetaUpgrade"
     },
     {
+      "id": "VanillaTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Shackle"
+    },
+    {
       "id": "ZeroAmmoBonusTrait",
       "gods": [
         "Demeter"
@@ -2574,6 +2713,33 @@
       "slot": "attack",
       "icon": "Boon_Zeus_04"
     }
+  ],
+  "keepsakes": [
+    "MaxHealthKeepsakeTrait",
+    "DirectionalArmorTrait",
+    "BackstabAlphaStrikeTrait",
+    "PerfectClearDamageBonusTrait",
+    "ShopDurationTrait",
+    "BonusMoneyTrait",
+    "LowHealthDamageTrait",
+    "DistanceDamageTrait",
+    "LifeOnUrnTrait",
+    "ReincarnationTrait",
+    "ForceZeusBoonTrait",
+    "ForcePoseidonBoonTrait",
+    "ForceAthenaBoonTrait",
+    "ForceAphroditeBoonTrait",
+    "ForceAresBoonTrait",
+    "ForceArtemisBoonTrait",
+    "ForceDionysusBoonTrait",
+    "FastClearDodgeBonusTrait",
+    "ForceDemeterBoonTrait",
+    "ChaosBoonTrait",
+    "VanillaTrait",
+    "ShieldBossTrait",
+    "ShieldAfterHitTrait",
+    "ChamberStackTrait",
+    "HadesShoutKeepsake"
   ],
   "achievements": [
     {

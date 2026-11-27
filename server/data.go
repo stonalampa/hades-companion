@@ -39,6 +39,7 @@ type Dataset struct {
 	Game         string        `json:"game"`
 	Weapons      []Weapon      `json:"weapons"`
 	Boons        []Boon        `json:"boons"`
+	Keepsakes    []string      `json:"keepsakes"`
 	Achievements []Achievement `json:"achievements"`
 
 	byID    map[string]*Boon

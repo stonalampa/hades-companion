@@ -6,11 +6,12 @@ import type { Boon, BoonId, Requirement, Slot } from './types'
  * - eligible: all prerequisite sets satisfied
  * - oneAway: exactly one set unsatisfied; any boon in `missing` completes it
  * - far: two or more sets unsatisfied
- * - blocked: never offered while `by` is held
+ * - blocked: never offered while `by` is held, or `god` can't join the run (four-god limit)
  */
 export type Status =
   | { kind: 'owned' }
-  | { kind: 'blocked'; by: BoonId }
+  | { kind: 'blocked'; by: BoonId; god?: undefined }
+  | { kind: 'blocked'; god: string; by?: undefined }
   | { kind: 'free' }
   | { kind: 'eligible' }
   | { kind: 'oneAway'; missing: BoonId[] }
@@ -20,10 +21,31 @@ export function unsatisfiedSets(req: Requirement | undefined, owned: ReadonlySet
   return (req ?? []).filter((set) => !set.some((id) => owned.has(id)))
 }
 
-export function evaluate(boon: Boon, owned: ReadonlySet<BoonId>): Status {
+/** Gods outside the god limit (they don't count toward it and can always come). */
+export const UNLIMITED_GODS: ReadonlySet<string> = new Set(['Hermes'])
+const MAX_GODS = 4
+
+/**
+ * The game offers boons from at most four Olympians per run (ReachedMaxGods in
+ * RunManager.lua); Hermes doesn't count. `gods` = those taken this run.
+ * Returns the gods that can still be offered, or undefined while any can.
+ */
+export function godPool(gods: Iterable<string>): ReadonlySet<string> | undefined {
+  const limited = new Set([...gods].filter((g) => !UNLIMITED_GODS.has(g)))
+  return limited.size >= MAX_GODS ? limited : undefined
+}
+
+/** A god of this boon that can no longer join the run, if any. */
+export function outOfPool(boon: Boon, pool?: ReadonlySet<string>): string | undefined {
+  return pool && boon.gods.find((g) => !UNLIMITED_GODS.has(g) && !pool.has(g))
+}
+
+export function evaluate(boon: Boon, owned: ReadonlySet<BoonId>, pool?: ReadonlySet<string>): Status {
   if (owned.has(boon.id)) return { kind: 'owned' }
   const by = boon.excludedBy?.find((id) => owned.has(id))
   if (by) return { kind: 'blocked', by }
+  const god = outOfPool(boon, pool)
+  if (god) return { kind: 'blocked', god }
   if (!boon.requires?.length) return { kind: 'free' }
   const open = unsatisfiedSets(boon.requires, owned)
   if (open.length === 0) return { kind: 'eligible' }
@@ -81,7 +103,12 @@ export function needsOtherAspect(boon: Boon, owned: ReadonlySet<BoonId>, byId: R
   )
 }
 
-/** Can this boon still show up this run? False if blocked or tied to another aspect. */
-export function possible(boon: Boon, owned: ReadonlySet<BoonId>, byId: ReadonlyMap<BoonId, Boon>): boolean {
-  return evaluate(boon, owned).kind !== 'blocked' && !needsOtherAspect(boon, owned, byId)
+/** Can this boon still show up this run? False if blocked, past the god limit or tied to another aspect. */
+export function possible(
+  boon: Boon,
+  owned: ReadonlySet<BoonId>,
+  byId: ReadonlyMap<BoonId, Boon>,
+  pool?: ReadonlySet<string>,
+): boolean {
+  return evaluate(boon, owned, pool).kind !== 'blocked' && !needsOtherAspect(boon, owned, byId)
 }

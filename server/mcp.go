@@ -15,7 +15,9 @@ Ground every build suggestion in these tools: boon names, prerequisites, exclusi
 player's build come from the game's own data files and the player's tracked run.
 "Eligible" means the game CAN offer a boon, never that it will. Prerequisite sets are ANDed;
 boons inside a set are ORed. Taking a slot boon (attack/special/cast/dash/call) replaces the
-one already in that slot. Numeric values (damage, chances) are not available.
+one already in that slot. A run offers boons from at most four Olympians (Hermes doesn't
+count); once four are taken, boons of other gods show as blocked. The equipped keepsake
+counts as held. Numeric values (damage, chances) are not available.
 Use get_current_run first, then get_boon for details.`
 
 // BoonRef is a boon as the model sees it: always with name and status for the current run.
@@ -35,7 +37,7 @@ func (g *Game) ref(id string, st State) BoonRef {
 		return BoonRef{ID: id, Name: g.name(id, nil), Status: "unknown"}
 	}
 	owned := st.owned()
-	r := BoonRef{ID: id, Name: g.name(id, owned), Gods: b.Gods, Kind: b.Kind, Slot: b.Slot, Status: g.evaluate(b, owned).Kind}
+	r := BoonRef{ID: id, Name: g.name(id, owned), Gods: b.Gods, Kind: b.Kind, Slot: b.Slot, Status: g.evaluate(b, owned, st.pool(g.Dataset)).Kind}
 	if rep := g.replaces(b, st.Run.Boons); rep != "" && r.Status != "owned" {
 		r.Replaces = g.name(rep, owned)
 	}
@@ -52,10 +54,10 @@ func (g *Game) refs(ids []string, st State) []BoonRef {
 
 // options lists the boons of a requirement set that are still possible this run.
 func (g *Game) options(ids []string, st State) []BoonRef {
-	owned := st.owned()
+	owned, pool := st.owned(), st.pool(g.Dataset)
 	var out []BoonRef
 	for _, id := range ids {
-		if b := g.byID[id]; b != nil && g.possible(b, owned) {
+		if b := g.byID[id]; b != nil && g.possible(b, owned, pool) {
 			out = append(out, g.ref(id, st))
 		}
 	}
@@ -83,6 +85,7 @@ type Progress struct {
 type RunOut struct {
 	Weapon       string     `json:"weapon,omitempty"`
 	Aspect       string     `json:"aspect,omitempty"`
+	Keepsake     string     `json:"keepsake,omitempty" jsonschema:"equipped keepsake; counts as held (Lambent Plume satisfies Hermes boons)"`
 	Build        []BoonRef  `json:"build"`
 	EligibleNow  []BoonRef  `json:"eligibleNow" jsonschema:"boons with prerequisites that are all met"`
 	OneBoonAway  []Progress `json:"oneBoonAway" jsonschema:"duo/legendary boons missing exactly one requirement, for gods already in the build"`
@@ -91,11 +94,14 @@ type RunOut struct {
 }
 
 func (g *Game) currentRun(st State) RunOut {
-	owned := st.owned()
+	owned, pool := st.owned(), st.pool(g.Dataset)
 	out := RunOut{Build: g.refs(st.Run.Boons, st), EligibleNow: []BoonRef{}, OneBoonAway: []Progress{}, Targets: []Progress{}}
 	if a := g.byID[st.Run.Aspect]; a != nil {
 		out.Aspect = g.name(a.ID, owned)
 		out.Weapon = g.name(a.Weapon, owned)
+	}
+	if st.Run.Keepsake != "" {
+		out.Keepsake = g.name(st.Run.Keepsake, owned)
 	}
 	ownedGods := set{}
 	for _, id := range st.Run.Boons {
@@ -107,10 +113,10 @@ func (g *Game) currentRun(st State) RunOut {
 	}
 	for i := range g.Boons {
 		b := &g.Boons[i]
-		if !hasBoonPrereqs(g.Dataset, b) || !g.possible(b, owned) {
+		if !hasBoonPrereqs(g.Dataset, b) || !g.possible(b, owned, pool) {
 			continue
 		}
-		s := g.evaluate(b, owned)
+		s := g.evaluate(b, owned, pool)
 		switch {
 		case s.Kind == "eligible":
 			out.EligibleNow = append(out.EligibleNow, g.ref(b.ID, st))
@@ -121,9 +127,9 @@ func (g *Game) currentRun(st State) RunOut {
 		}
 	}
 	for _, id := range st.Run.Targets {
-		p := Progress{Target: g.ref(id, st), BoonsNeeded: needed(g.boonsNeeded(id, owned, nil))}
+		p := Progress{Target: g.ref(id, st), BoonsNeeded: needed(g.boonsNeeded(id, owned, pool, nil))}
 		if b := g.byID[id]; b != nil {
-			if s := g.evaluate(b, owned); s.Kind == "oneAway" {
+			if s := g.evaluate(b, owned, pool); s.Kind == "oneAway" {
 				p.TakeOneOf = g.options(s.Missing, st)
 			}
 		}
@@ -213,15 +219,18 @@ func (g *Game) findBoon(q string) *Boon {
 }
 
 func (g *Game) boonDetail(b *Boon, st State) BoonOut {
-	owned := st.owned()
-	s := g.evaluate(b, owned)
+	owned, pool := st.owned(), st.pool(g.Dataset)
+	s := g.evaluate(b, owned, pool)
 	out := BoonOut{
 		BoonRef:     g.ref(b.ID, st),
 		Description: cleanDescription(g.textFor(b.ID, owned).Description),
-		BoonsNeeded: needed(g.boonsNeeded(b.ID, owned, nil)),
+		BoonsNeeded: needed(g.boonsNeeded(b.ID, owned, pool, nil)),
 	}
 	if s.BlockedBy != "" {
 		out.BlockedBy = g.name(s.BlockedBy, owned)
+	}
+	if s.BlockedGod != "" {
+		out.BlockedBy = s.BlockedGod + " (the run already has four gods)"
 	}
 	for _, req := range b.Requires {
 		out.RequiresAllOf = append(out.RequiresAllOf, g.refs(req, st))
@@ -331,7 +340,7 @@ func newMCPServer(g *Game, store *Store) *mcp.Server {
 	ro := &mcp.ToolAnnotations{ReadOnlyHint: true}
 
 	mcp.AddTool(s, &mcp.Tool{Name: "get_current_run", Annotations: ro,
-		Description: "The player's current Hades run: weapon/aspect, build, boons eligible now, duo/legendary boons one boon away (with which boons complete them), pinned targets, and achievements this run counts for."},
+		Description: "The player's current Hades run: weapon/aspect, equipped keepsake, build, boons eligible now, duo/legendary boons one boon away (with which boons complete them), pinned targets, and achievements this run counts for."},
 		func(_ context.Context, _ *mcp.CallToolRequest, _ RunIn) (*mcp.CallToolResult, RunOut, error) {
 			return nil, g.currentRun(store.Get()), nil
 		})
