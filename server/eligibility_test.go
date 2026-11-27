@@ -104,3 +104,36 @@ func TestFourGodLimit(t *testing.T) {
 		t.Fatal("Zeus from history must count")
 	}
 }
+
+func TestSaveProgress(t *testing.T) {
+	g := testGame(t)
+	st := State{Save: &Save{
+		ImportedAt: "2026-11-27T22:00:00Z",
+		Facts:      []byte(`{"quests":{"ZeusUpgrades":"CashedOut","HermesUpgrades":"Unlocked"}}`),
+		Progress: map[string]SaveProgress{
+			"AchCerberusPets": {Done: true},
+			"HermesUpgrades":  {Summary: "11/13 Boons / upgrades taken, missing: Quick Reload, Greater Recall"},
+		},
+	}}
+	if !st.done()["AchCerberusPets"] {
+		t.Fatal("save-proven achievement must count as done")
+	}
+	out, err := g.prophecies(ProphecyIn{}, st)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if out.Done != 1 || out.Total != len(g.Quests) {
+		t.Fatalf("done %d/%d", out.Done, out.Total)
+	}
+	for _, p := range out.Prophecies {
+		if p.ID == "ZeusUpgrades" {
+			t.Fatal("fulfilled prophecy listed as missing")
+		}
+		if p.ID == "HermesUpgrades" && (p.Status != "in progress" || p.Progress == "") {
+			t.Fatalf("Hermes: %+v", p)
+		}
+	}
+	if _, err := g.prophecies(ProphecyIn{}, State{}); err == nil {
+		t.Fatal("want an error without a save")
+	}
+}

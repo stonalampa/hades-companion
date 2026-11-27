@@ -9,7 +9,8 @@ Short record of what was decided and why. Details and evidence: [discovery.md](d
 - **Eligibility, never promises.** The game decides what it offers; the app only says what *can* be offered.
 - **Keepsake is a pick, not a boon** (2026-11-27). One is equipped at a time and can be swapped between biomes, like the aspect it counts as held. Older runs that held a keepsake in the build are migrated.
 - **Four-god limit** (2026-11-27). The game offers boons from at most four Olympians per run (`ReachedMaxGods` in `RunManager.lua`, `maxLootTypes = 4`); Hermes has `GodLoot = false` and doesn't count. The run keeps a history of gods taken because the game counts a god even after its boon is replaced; removing a boon by hand is treated as a correction and forgets its god.
-- **No save-file import (for now).** It would mostly duplicate the in-game Codex; achievements come from Steam or manual marks.
+- ~~No save-file import~~ → **Save import for progress** (2026-11-27). Steam only says done/not done; the save knows *what is missing* (which Artemis boons were never taken, which keepsakes aren't maxed). `Profile1.sav` is read in the browser (both editions); only a ~20 KB set of facts is kept (localStorage, and the server in the Docker edition), never the file. Progress checks the same requirement keys as the game's `IsGameStateEligible`. An achievement whose requirements are all tracked and met counts as done.
+- **Progress rules live in TypeScript only.** The frontend sends the server its evaluation as text per achievement/prophecy; MCP reads that. No Go port of the rules, unlike eligibility.
 
 ## Data
 

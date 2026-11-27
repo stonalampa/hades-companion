@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { countingTraits } from './core/achievements'
+import type { Part } from './core/progress'
+import { Parts } from './Progress'
 import type { Achievement } from './core/types'
 import { achievementName, dataset, type TextMap } from './data'
 import { useRunCtx } from './runContext'
@@ -11,12 +13,19 @@ type Filter = 'missing' | 'done' | 'all'
 export function Achievements(props: {
   manual: ReadonlySet<string>
   steam: SteamSync
+  /** Achievements the imported save proves done. */
+  saveDone: ReadonlySet<string>
+  progress: ReadonlyMap<string, Part[]>
   toggle: (id: string) => void
+  /** Steam achievement text. */
   text: TextMap
+  /** Game text, for names in progress lines. */
+  gameText: TextMap
+  saveBar: ReactNode
 }) {
-  const { manual, steam, toggle, text } = props
+  const { manual, steam, saveDone, progress, toggle, text, gameText, saveBar } = props
   const fromSteam = new Set(steam.achieved)
-  const done = new Set([...manual, ...fromSteam])
+  const done = new Set([...manual, ...fromSteam, ...saveDone])
   const { owned, name } = useRunCtx()
   const [filter, setFilter] = useState<Filter>('missing')
   const [runOnly, setRunOnly] = useState(false)
@@ -65,6 +74,8 @@ export function Achievements(props: {
         </p>
       )}
 
+      {saveBar}
+
       {Object.keys(text).length === 0 && (
         <p className="muted small">
           Names and descriptions come from Steam: run <code>STEAM_API_KEY=… go run ./tools/steamschema</code>, then{' '}
@@ -83,8 +94,10 @@ export function Achievements(props: {
               text={text}
               done={done.has(a.id)}
               steam={fromSteam.has(a.id)}
+              bySave={saveDone.has(a.id)}
               toggle={toggle}
               counts={countingTraits(a, owned).map(name)}
+              progress={<Parts parts={progress.get(a.id) ?? []} text={gameText} />}
             />
           ))}
         </ul>
@@ -98,24 +111,28 @@ function Row(props: {
   text: TextMap
   done: boolean
   steam: boolean
+  bySave: boolean
   toggle: (id: string) => void
   counts: string[]
+  progress: ReactNode
 }) {
-  const { a, text, done, steam, toggle, counts } = props
+  const { a, text, done, steam, bySave, toggle, counts, progress } = props
   return (
     <li className={done ? 'done' : ''}>
       <label>
-        {/* Steam-unlocked ones can't be unmarked here; Steam is the source of truth for them. */}
-        <input type="checkbox" checked={done} disabled={steam} onChange={() => toggle(a.id)} />
+        {/* Steam- and save-proven ones can't be unmarked here; their source is the truth. */}
+        <input type="checkbox" checked={done} disabled={steam || bySave} onChange={() => toggle(a.id)} />
         <AchievementIcon id={a.id} />
         <span className="ach-body">
           <span className="ach-name">
             {achievementName(a.id, text)}
             {a.scope === 'run' && <span className="tag">in a run</span>}
             {steam && <span className="tag steam">Steam</span>}
+            {bySave && !steam && <span className="tag steam">save</span>}
             {counts.length > 0 && !done && <span className="good">this run counts: {counts.join(', ')}</span>}
           </span>
           {text[a.id]?.description && <span className="muted small">{text[a.id].description}</span>}
+          {!done && progress}
         </span>
       </label>
     </li>

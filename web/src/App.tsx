@@ -12,6 +12,10 @@ import { useServerSync } from './useServerSync'
 import { Achievements } from './Achievements'
 import { countingTraits } from './core/achievements'
 import { dropBoon, heldIds, runGods, takeBoon } from './core/run'
+import { completeBySave, progress, type Part } from './core/progress'
+import { Prophecies, SaveBar } from './Progress'
+import { summary } from './progressText'
+import { useSave } from './save/useSave'
 
 const SLOTS: Slot[] = ['attack', 'special', 'cast', 'dash', 'call']
 const KIND_ORDER: Record<Boon['kind'], number> = { legendary: 0, duo: 1, standard: 2, slot: 3, keepsake: 4, aspect: 5 }
@@ -25,9 +29,38 @@ export default function App() {
   const [focused, setFocused] = useState<BoonId | null>(null)
   const [view, setView] = useView()
   const achievements = useAchievements()
-  const { status: sync, steam } = useServerSync(run, achievements.list, replace, achievements.replace)
-  // Done = manual marks + Steam (server edition).
-  const done = useMemo(() => new Set([...achievements.list, ...steam.achieved]), [achievements.list, steam.achieved])
+  const save = useSave()
+  // Progress per achievement and prophecy, from the imported save.
+  const saveProgress = useMemo(() => {
+    const out = new Map<string, Part[]>()
+    const facts = save.snapshot?.facts
+    if (facts) for (const x of [...dataset.achievements, ...dataset.quests]) out.set(x.id, progress(x.requirements, facts, dataset))
+    return out
+  }, [save.snapshot])
+  const saveDone = useMemo(
+    () => new Set(dataset.achievements.filter((a) => completeBySave(saveProgress.get(a.id) ?? [])).map((a) => a.id)),
+    [saveProgress],
+  )
+  const { status: sync, steam } = useServerSync(run, achievements.list, replace, achievements.replace, {
+    snapshot: save.snapshot,
+    replace: save.replace,
+    // Achievements and prophecies as text, for MCP.
+    progress: () =>
+      Object.fromEntries(
+        [...saveProgress].map(([id, parts]) => [
+          id,
+          {
+            done: dataset.quests.some((q) => q.id === id) ? save.snapshot?.facts.quests[id] === 'CashedOut' : saveDone.has(id),
+            summary: summary(parts, text),
+          },
+        ]),
+      ),
+  })
+  // Done = manual marks + Steam (server edition) + what the save proves.
+  const done = useMemo(
+    () => new Set([...achievements.list, ...steam.achieved, ...saveDone]),
+    [achievements.list, steam.achieved, saveDone],
+  )
   const [achText, setAchText] = useState<TextMap>({})
   useEffect(() => {
     loadAchievementText().then(setAchText)
@@ -88,6 +121,10 @@ export default function App() {
     .map((a) => ({ a, counts: countingTraits(a, owned) }))
     .filter((x) => x.counts.length > 0)
 
+  const saveBar = (
+    <SaveBar snapshot={save.snapshot} error={save.error} onFile={(f) => void save.importFile(f)} onClear={save.clear} />
+  )
+
   return (
     <RunContext.Provider value={ctx}>
       <div className="app">
@@ -101,6 +138,9 @@ export default function App() {
               <span className="muted">
                 {done.size}/{dataset.achievements.length}
               </span>
+            </button>
+            <button className={view === 'prophecies' ? 'active' : ''} onClick={() => setView('prophecies')}>
+              Fated List
             </button>
           </nav>
           {sync !== 'local' && (
@@ -122,7 +162,18 @@ export default function App() {
         </header>
 
         {view === 'achievements' ? (
-          <Achievements manual={achievements.done} steam={steam} toggle={achievements.toggle} text={achText} />
+          <Achievements
+            manual={achievements.done}
+            steam={steam}
+            saveDone={saveDone}
+            progress={saveProgress}
+            toggle={achievements.toggle}
+            text={achText}
+            gameText={text}
+            saveBar={saveBar}
+          />
+        ) : view === 'prophecies' ? (
+          <Prophecies snapshot={save.snapshot} progress={saveProgress} text={text} saveBar={saveBar} />
         ) : (
           <>
             <GodsLine gods={gods} full={!!pool} />
@@ -444,13 +495,15 @@ function KeepsakePicker({ keepsake, onChange }: { keepsake?: BoonId; onChange: (
   )
 }
 
-type View = 'run' | 'achievements'
+const VIEWS = ['run', 'achievements', 'prophecies'] as const
+type View = (typeof VIEWS)[number]
 
 /** Current tab, remembered per browser. */
 function useView(): [View, (v: View) => void] {
   const [view, setView] = useState<View>(() => {
     try {
-      return localStorage.getItem('hades-companion:view') === 'achievements' ? 'achievements' : 'run'
+      const v = localStorage.getItem('hades-companion:view')
+      return VIEWS.find((x) => x === v) ?? 'run'
     } catch {
       return 'run'
     }
