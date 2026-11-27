@@ -1,0 +1,14 @@
+# Never send game files, secrets or local state into the build context.
+game-files/
+state/
+.env
+.git/
+.idea/
+.venv/
+bin/
+**/node_modules/
+web/dist/
+web/public/local/
+**/.DS_Store
+assets/
+notes/

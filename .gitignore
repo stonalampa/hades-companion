@@ -1,0 +1,13 @@
+game-files/
+*.sav
+.env
+node_modules/
+dist/
+.DS_Store
+.idea/
+bin/
+.venv/
+state/
+notes/
+# local copy of game-files/generated for Docker (Supergiant assets)
+assets/

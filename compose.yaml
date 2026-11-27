@@ -1,0 +1,15 @@
+# Self-host example. Put STEAM_API_KEY, STEAM_ID and MCP_TOKEN in .env next to this file.
+#
+#   ./assets  <- copy of game-files/generated (text.en.json, icons/, achievements.en.json, achievement-icons/)
+#   ./state   <- run + achievements; chown 65532:65532 so the container user can write it
+services:
+  hades-companion:
+    image: ghcr.io/stonalampa/hades-companion:latest
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file: .env
+    volumes:
+      - ./assets:/data/assets:ro
+      - ./state:/data/state

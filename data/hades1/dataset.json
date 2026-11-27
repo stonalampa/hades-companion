@@ -1,0 +1,3159 @@
+{
+  "game": "hades1",
+  "sources": {
+    "AchievementData.lua": "90ad42d916e4a9e71b27df69a88e4ed64a5560fe2e62f96b5e0d7b8e7baf261b",
+    "LootData.lua": "20081ab6f36c04e1ed0091fe67336d3662b35168179a77d309573e2af5ff7595",
+    "TraitData.lua": "ddb690ad6274550bf5103d8875b5ca9063b5bb9fe8a6c08d3e011f7746338d18",
+    "WeaponSets.lua": "2672ff2c4ab332b1e43645a26d9dcd95a46e385ec4367ef1511253e9986b73b7",
+    "WeaponUpgradeData.lua": "f58d2d6153c5b4b242105b47b3f57e7201fe11526dbce7aaa574437e94a673d7"
+  },
+  "weapons": [
+    {
+      "id": "SwordWeapon",
+      "aspects": [
+        "SwordBaseUpgradeTrait",
+        "SwordCriticalParryTrait",
+        "DislodgeAmmoTrait",
+        "SwordConsecrationTrait"
+      ]
+    },
+    {
+      "id": "SpearWeapon",
+      "aspects": [
+        "SpearBaseUpgradeTrait",
+        "SpearTeleportTrait",
+        "SpearWeaveTrait",
+        "SpearSpinTravel"
+      ]
+    },
+    {
+      "id": "ShieldWeapon",
+      "aspects": [
+        "ShieldBaseUpgradeTrait",
+        "ShieldRushBonusProjectileTrait",
+        "ShieldTwoShieldTrait",
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "BowWeapon",
+      "aspects": [
+        "BowBaseUpgradeTrait",
+        "BowMarkHomingTrait",
+        "BowLoadAmmoTrait",
+        "BowBondTrait"
+      ]
+    },
+    {
+      "id": "FistWeapon",
+      "aspects": [
+        "FistBaseUpgradeTrait",
+        "FistVacuumTrait",
+        "FistWeaveTrait",
+        "FistDetonateTrait"
+      ]
+    },
+    {
+      "id": "GunWeapon",
+      "aspects": [
+        "GunBaseUpgradeTrait",
+        "GunGrenadeSelfEmpowerTrait",
+        "GunManualReloadTrait",
+        "GunLoadedGrenadeTrait"
+      ]
+    }
+  ],
+  "boons": [
+    {
+      "id": "AmmoBoltTrait",
+      "gods": [
+        "Zeus",
+        "Artemis"
+      ],
+      "kind": "duo",
+      "icon": "Artemis_Zeus_01",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait",
+          "ShieldLoadAmmo_ArtemisRangedTrait",
+          "ArtemisRushTrait",
+          "ArtemisShoutTrait"
+        ],
+        [
+          "ZeusWeaponTrait",
+          "ZeusRushTrait",
+          "ZeusSecondaryTrait",
+          "ZeusRangedTrait",
+          "ShieldLoadAmmo_ZeusRangedTrait",
+          "ZeusShoutTrait"
+        ]
+      ],
+      "mirror": "AmmoMetaUpgrade"
+    },
+    {
+      "id": "AmmoReclaimTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_03",
+      "excludedBy": [
+        "AresRangedTrait",
+        "DionysusRangedTrait",
+        "DemeterRangedTrait",
+        "ShieldLoadAmmoTrait",
+        "PoseidonAresProjectileTrait"
+      ],
+      "mirror": "AmmoMetaUpgrade"
+    },
+    {
+      "id": "AmmoReloadTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_03",
+      "mirror": "ReloadAmmoMetaUpgrade"
+    },
+    {
+      "id": "AphroditeDeathTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Aphrodite_08"
+    },
+    {
+      "id": "AphroditeDurationTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Aphrodite_05",
+      "requires": [
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AphroditePotencyTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Aphrodite_12",
+      "requires": [
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AphroditeRangedBonusTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Aphrodite_13",
+      "requires": [
+        [
+          "AphroditeRangedTrait"
+        ]
+      ],
+      "excludedBy": [
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "AphroditeRangedTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Aphrodite_02",
+      "excludedBy": [
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "AphroditeRetaliateTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Aphrodite_09"
+    },
+    {
+      "id": "AphroditeRushTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "slot",
+      "slot": "dash",
+      "icon": "Boon_Aphrodite_03"
+    },
+    {
+      "id": "AphroditeSecondaryTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "slot",
+      "slot": "special",
+      "icon": "Boon_Aphrodite_00"
+    },
+    {
+      "id": "AphroditeShoutTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "slot",
+      "slot": "call",
+      "icon": "Boon_Aphrodite_04"
+    },
+    {
+      "id": "AphroditeWeakenTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Aphrodite_06",
+      "requires": [
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AphroditeWeaponTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "slot",
+      "slot": "attack",
+      "icon": "Boon_Aphrodite_01"
+    },
+    {
+      "id": "AresAoETrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Ares_07",
+      "requires": [
+        [
+          "AresRangedTrait",
+          "AresRushTrait",
+          "AresShoutTrait",
+          "ShieldLoadAmmo_AresRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AresCursedRiftTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Ares_09",
+      "requires": [
+        [
+          "AresAoETrait",
+          "AresDragTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AresDragTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Ares_08",
+      "requires": [
+        [
+          "AresRangedTrait",
+          "AresRushTrait",
+          "AresShoutTrait",
+          "ShieldLoadAmmo_AresRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AresHomingTrait",
+      "gods": [
+        "Ares",
+        "Artemis"
+      ],
+      "kind": "duo",
+      "icon": "Artemis_Ares_01",
+      "requires": [
+        [
+          "AresRangedTrait"
+        ],
+        [
+          "ArtemisWeaponTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRushTrait",
+          "ArtemisShoutTrait"
+        ]
+      ],
+      "excludedBy": [
+        "StationaryRiftTrait",
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "AresLoadCurseTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Ares_11",
+      "requires": [
+        [
+          "AresWeaponTrait",
+          "AresSecondaryTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AresLongCurseTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Ares_13",
+      "requires": [
+        [
+          "AresWeaponTrait",
+          "AresSecondaryTrait",
+          "AresRetaliateTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AresRangedTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Ares_02",
+      "excludedBy": [
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "AresRetaliateTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Ares_05"
+    },
+    {
+      "id": "AresRushTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "slot",
+      "slot": "dash",
+      "icon": "Boon_Ares_03"
+    },
+    {
+      "id": "AresSecondaryTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "slot",
+      "slot": "special",
+      "icon": "Boon_Ares_00"
+    },
+    {
+      "id": "AresShoutTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "slot",
+      "slot": "call",
+      "icon": "Boon_Ares_04"
+    },
+    {
+      "id": "AresWeaponTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "slot",
+      "slot": "attack",
+      "icon": "Boon_Ares_01"
+    },
+    {
+      "id": "ArtemisAmmoExitTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Artemis_10",
+      "requires": [
+        [
+          "ArtemisRangedTrait",
+          "PoseidonRangedTrait",
+          "ZeusRangedTrait",
+          "AphroditeRangedTrait",
+          "AthenaRangedTrait"
+        ]
+      ],
+      "excludedBy": [
+        "BlizzardOrbTrait",
+        "AresRangedTrait",
+        "DionysusRangedTrait",
+        "DemeterRangedTrait",
+        "ShieldLoadAmmoTrait",
+        "PoseidonAresProjectileTrait"
+      ]
+    },
+    {
+      "id": "ArtemisBonusProjectileTrait",
+      "gods": [
+        "Poseidon",
+        "Artemis"
+      ],
+      "kind": "duo",
+      "icon": "Poseidon_Artemis_01",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait",
+          "ShieldLoadAmmo_ArtemisRangedTrait",
+          "ArtemisShoutTrait"
+        ],
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonRangedTrait",
+          "PoseidonRushTrait",
+          "PoseidonShoutTrait"
+        ]
+      ],
+      "excludedBy": [
+        "PoseidonAresProjectileTrait"
+      ]
+    },
+    {
+      "id": "ArtemisCriticalTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Artemis_05",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "CritBonusTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait",
+          "ArtemisShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ArtemisRangedTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Artemis_02",
+      "excludedBy": [
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "ArtemisReflectBuffTrait",
+      "gods": [
+        "Athena",
+        "Artemis"
+      ],
+      "kind": "duo",
+      "icon": "Artemis_Athena_01",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait",
+          "ShieldLoadAmmo_ArtemisRangedTrait",
+          "ArtemisShoutTrait"
+        ],
+        [
+          "AthenaWeaponTrait",
+          "AthenaSecondaryTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ArtemisRushTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "slot",
+      "slot": "dash",
+      "icon": "Boon_Artemis_03",
+      "excludedBy": [
+        "GunLoadedGrenadeTrait"
+      ]
+    },
+    {
+      "id": "ArtemisSecondaryTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "slot",
+      "slot": "special",
+      "icon": "Boon_Artemis_00"
+    },
+    {
+      "id": "ArtemisShoutTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "slot",
+      "slot": "call",
+      "icon": "Boon_Artemis_04"
+    },
+    {
+      "id": "ArtemisSupportingFireTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Artemis_12",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRushTrait",
+          "ArtemisRangedTrait",
+          "ShieldLoadAmmo_ArtemisRangedTrait",
+          "ArtemisShoutTrait",
+          "CritBonusTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ArtemisWeaponTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "slot",
+      "slot": "attack",
+      "icon": "Boon_Artemis_01"
+    },
+    {
+      "id": "AthenaBackstabDebuffTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Athena_14",
+      "requires": [
+        [
+          "AthenaWeaponTrait",
+          "AthenaRangedTrait",
+          "ShieldLoadAmmo_AthenaRangedTrait",
+          "AthenaRushTrait",
+          "AthenaSecondaryTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AthenaRangedTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Athena_02",
+      "excludedBy": [
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "AthenaRetaliateTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Athena_08"
+    },
+    {
+      "id": "AthenaRushTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "slot",
+      "slot": "dash",
+      "icon": "Boon_Athena_03"
+    },
+    {
+      "id": "AthenaSecondaryTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "slot",
+      "slot": "special",
+      "icon": "Boon_Athena_00"
+    },
+    {
+      "id": "AthenaShieldTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Athena_05",
+      "requires": [
+        [
+          "AthenaWeaponTrait",
+          "AthenaRushTrait",
+          "AthenaRetaliateTrait",
+          "AthenaSecondaryTrait"
+        ]
+      ]
+    },
+    {
+      "id": "AthenaShoutTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "slot",
+      "slot": "call",
+      "icon": "Boon_Athena_04"
+    },
+    {
+      "id": "AthenaWeaponTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "slot",
+      "slot": "attack",
+      "icon": "Boon_Athena_01"
+    },
+    {
+      "id": "AutoRetaliateTrait",
+      "gods": [
+        "Zeus",
+        "Ares"
+      ],
+      "kind": "duo",
+      "icon": "Zeus_Ares_01",
+      "requires": [
+        [
+          "ZeusWeaponTrait",
+          "ZeusSecondaryTrait",
+          "ZeusRangedTrait",
+          "ZeusRushTrait",
+          "ZeusShoutTrait",
+          "ShieldLoadAmmo_ZeusRangedTrait"
+        ],
+        [
+          "AresWeaponTrait",
+          "AresSecondaryTrait",
+          "AresRangedTrait",
+          "AresRushTrait",
+          "AresShoutTrait",
+          "ShieldLoadAmmo_AresRangedTrait"
+        ],
+        [
+          "AresRetaliateTrait",
+          "RetaliateWeaponTrait",
+          "AthenaRetaliateTrait",
+          "AphroditeRetaliateTrait",
+          "DemeterRetaliateTrait"
+        ]
+      ]
+    },
+    {
+      "id": "BlizzardOrbTrait",
+      "gods": [
+        "Poseidon",
+        "Demeter"
+      ],
+      "kind": "duo",
+      "icon": "Poseidon_Demeter_01",
+      "requires": [
+        [
+          "DemeterWeaponTrait",
+          "DemeterSecondaryTrait",
+          "DemeterRushTrait",
+          "DemeterShoutTrait"
+        ],
+        [
+          "PoseidonRangedTrait"
+        ]
+      ],
+      "excludedBy": [
+        "PoseidonAresProjectileTrait",
+        "IceStrikeArrayTrait",
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "BonusCollisionTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Poseidon_05",
+      "requires": [
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonRushTrait",
+          "PoseidonRangedTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "BonusDashTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_01"
+    },
+    {
+      "id": "BossDamageTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Poseidon_12",
+      "requires": [
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonRushTrait",
+          "PoseidonRangedTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "BowBaseUpgradeTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Bow01",
+      "weapon": "BowWeapon"
+    },
+    {
+      "id": "BowBondTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Bow04",
+      "weapon": "BowWeapon"
+    },
+    {
+      "id": "BowLoadAmmoTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Bow03",
+      "weapon": "BowWeapon"
+    },
+    {
+      "id": "BowMarkHomingTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Bow02",
+      "weapon": "BowWeapon"
+    },
+    {
+      "id": "CastBackstabTrait",
+      "gods": [
+        "Athena",
+        "Aphrodite"
+      ],
+      "kind": "duo",
+      "icon": "Aphrodite_Athena_01",
+      "requires": [
+        [
+          "AthenaWeaponTrait",
+          "AthenaRangedTrait",
+          "AthenaSecondaryTrait",
+          "AthenaRushTrait",
+          "AthenaShoutTrait"
+        ],
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "AphroditeShoutTrait"
+        ]
+      ],
+      "excludedBy": [
+        "DionysusRangedTrait",
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "CastNovaTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Demeter_05"
+    },
+    {
+      "id": "ChamberGoldTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_14"
+    },
+    {
+      "id": "CharmTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Aphrodite_10",
+      "requires": [
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ],
+        [
+          "AphroditeDurationTrait",
+          "AphroditeWeakenTrait",
+          "AphroditePotencyTrait"
+        ]
+      ]
+    },
+    {
+      "id": "CritBonusTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Artemis_08"
+    },
+    {
+      "id": "CritVulnerabilityTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Artemis_14",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "CritBonusTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait",
+          "ArtemisShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "CriticalBufferMultiplierTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Artemis_09",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "CritBonusTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait",
+          "ArtemisShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "CriticalSuperGenerationTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Artemis_13",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "CritBonusTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait"
+        ],
+        [
+          "AphroditeShoutTrait",
+          "AresShoutTrait",
+          "ArtemisShoutTrait",
+          "AthenaShoutTrait",
+          "DemeterShoutTrait",
+          "DionysusShoutTrait",
+          "PoseidonShoutTrait",
+          "ZeusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "CurseSickTrait",
+      "gods": [
+        "Ares",
+        "Aphrodite"
+      ],
+      "kind": "duo",
+      "icon": "Ares_Aphrodite_01",
+      "requires": [
+        [
+          "AresWeaponTrait",
+          "AresSecondaryTrait"
+        ],
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DefensiveSuperGenerationTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Poseidon_10",
+      "requires": [
+        [
+          "AphroditeShoutTrait",
+          "AresShoutTrait",
+          "ArtemisShoutTrait",
+          "AthenaShoutTrait",
+          "DemeterShoutTrait",
+          "DionysusShoutTrait",
+          "PoseidonShoutTrait",
+          "ZeusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DemeterRangedBonusTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Demeter_14",
+      "requires": [
+        [
+          "DemeterRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DemeterRangedTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Demeter_02",
+      "excludedBy": [
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "DemeterRetaliateTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Demeter_13"
+    },
+    {
+      "id": "DemeterRushTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "slot",
+      "slot": "dash",
+      "icon": "Boon_Demeter_03"
+    },
+    {
+      "id": "DemeterSecondaryTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "slot",
+      "slot": "special",
+      "icon": "Boon_Demeter_00"
+    },
+    {
+      "id": "DemeterShoutTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "slot",
+      "slot": "call",
+      "icon": "Boon_Demeter_04"
+    },
+    {
+      "id": "DemeterWeaponTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "slot",
+      "slot": "attack",
+      "icon": "Boon_Demeter_01"
+    },
+    {
+      "id": "DionysusAphroditeStackIncreaseTrait",
+      "gods": [
+        "Aphrodite",
+        "Dionysus"
+      ],
+      "kind": "duo",
+      "icon": "Dionysus_Aphrodite_01",
+      "requires": [
+        [
+          "DionysusWeaponTrait",
+          "DionysusSecondaryTrait",
+          "DionysusRushTrait",
+          "DionysusShoutTrait"
+        ],
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DionysusComboVulnerability",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Dionysus_08",
+      "requires": [
+        [
+          "DionysusRangedTrait"
+        ],
+        [
+          "DionysusWeaponTrait",
+          "DionysusSecondaryTrait",
+          "DionysusShoutTrait",
+          "DionysusRushTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DionysusDefenseTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Dionysus_11",
+      "requires": [
+        [
+          "DionysusRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DionysusPoisonPowerTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Dionysus_09",
+      "requires": [
+        [
+          "DionysusRushTrait",
+          "DionysusWeaponTrait",
+          "DionysusSecondaryTrait",
+          "DionysusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DionysusRangedTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Dionysus_02",
+      "textOverrides": {
+        "BowLoadAmmoTrait": "BowLoadAmmo_DionysusRangedTrait",
+        "ShieldLoadAmmoTrait": "ShieldLoadAmmo_DionysusRangedTrait"
+      }
+    },
+    {
+      "id": "DionysusRushTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "slot",
+      "slot": "dash",
+      "icon": "Boon_Dionysus_03"
+    },
+    {
+      "id": "DionysusSecondaryTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "slot",
+      "slot": "special",
+      "icon": "Boon_Dionysus_00"
+    },
+    {
+      "id": "DionysusShoutTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "slot",
+      "slot": "call",
+      "icon": "Boon_Dionysus_04"
+    },
+    {
+      "id": "DionysusSlowTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Dionysus_06",
+      "requires": [
+        [
+          "DionysusRushTrait",
+          "DionysusWeaponTrait",
+          "DionysusSecondaryTrait",
+          "DionysusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DionysusSpreadTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Dionysus_07",
+      "requires": [
+        [
+          "DionysusRushTrait",
+          "DionysusWeaponTrait",
+          "DionysusSecondaryTrait"
+        ]
+      ]
+    },
+    {
+      "id": "DionysusWeaponTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "slot",
+      "slot": "attack",
+      "icon": "Boon_Dionysus_01"
+    },
+    {
+      "id": "DislodgeAmmoTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Sword02",
+      "weapon": "SwordWeapon"
+    },
+    {
+      "id": "DodgeChanceTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_04"
+    },
+    {
+      "id": "DoorHealTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Dionysus_10"
+    },
+    {
+      "id": "DoubleCollisionTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Poseidon_07",
+      "requires": [
+        [
+          "BonusCollisionTrait",
+          "SlamExplosionTrait"
+        ],
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonRushTrait",
+          "PoseidonRangedTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "EncounterStartOffenseBuffTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Poseidon_14"
+    },
+    {
+      "id": "EnemyDamageTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Athena_06"
+    },
+    {
+      "id": "FastClearDodgeBonusTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Feather"
+    },
+    {
+      "id": "FishingTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Poseidon_13",
+      "requires": [
+        [
+          "RoomRewardBonusTrait",
+          "PoseidonPickedUpMinorLootTrait"
+        ],
+        [
+          "PoseidonPickedUpMinorLootTrait",
+          "ForcePoseidonBoonTrait"
+        ],
+        [
+          "RoomRewardBonusTrait",
+          "ForcePoseidonBoonTrait"
+        ]
+      ]
+    },
+    {
+      "id": "FistBaseUpgradeTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Fist01",
+      "weapon": "FistWeapon"
+    },
+    {
+      "id": "FistDetonateTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Fist04",
+      "weapon": "FistWeapon"
+    },
+    {
+      "id": "FistVacuumTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Fist03",
+      "weapon": "FistWeapon"
+    },
+    {
+      "id": "FistWeaveTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Fist02",
+      "weapon": "FistWeapon"
+    },
+    {
+      "id": "ForcePoseidonBoonTrait",
+      "gods": [],
+      "kind": "keepsake",
+      "icon": "Keepsake_Conch"
+    },
+    {
+      "id": "FountainDamageBonusTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Dionysus_13"
+    },
+    {
+      "id": "GunBaseUpgradeTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Gun01",
+      "weapon": "GunWeapon"
+    },
+    {
+      "id": "GunGrenadeSelfEmpowerTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Gun02",
+      "weapon": "GunWeapon"
+    },
+    {
+      "id": "GunLoadedGrenadeTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Gun04",
+      "weapon": "GunWeapon"
+    },
+    {
+      "id": "GunManualReloadTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Gun03",
+      "weapon": "GunWeapon"
+    },
+    {
+      "id": "HealthRewardBonusTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Aphrodite_11"
+    },
+    {
+      "id": "HeartsickCritDamageTrait",
+      "gods": [
+        "Aphrodite",
+        "Artemis"
+      ],
+      "kind": "duo",
+      "icon": "Artemis_Aphrodite_01",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait",
+          "ShieldLoadAmmo_ArtemisRangedTrait"
+        ],
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "HermesSecondaryTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "slot": "special",
+      "icon": "Boon_Hermes_09",
+      "excludedBy": [
+        "SwordSecondaryBlinkTrait"
+      ]
+    },
+    {
+      "id": "HermesShoutDodge",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_12",
+      "requires": [
+        [
+          "AphroditeShoutTrait",
+          "AresShoutTrait",
+          "ArtemisShoutTrait",
+          "AthenaShoutTrait",
+          "DemeterShoutTrait",
+          "DionysusShoutTrait",
+          "PoseidonShoutTrait",
+          "ZeusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "HermesWeaponTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "slot": "attack",
+      "icon": "Boon_Hermes_06"
+    },
+    {
+      "id": "HomingLaserTrait",
+      "gods": [
+        "Artemis",
+        "Demeter"
+      ],
+      "kind": "duo",
+      "icon": "Demeter_Artemis_01",
+      "requires": [
+        [
+          "ArtemisWeaponTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRushTrait",
+          "ArtemisShoutTrait"
+        ],
+        [
+          "DemeterRangedTrait"
+        ]
+      ],
+      "excludedBy": [
+        "SelfLaserTrait",
+        "MultiLaserTrait"
+      ]
+    },
+    {
+      "id": "IceStrikeArrayTrait",
+      "gods": [
+        "Dionysus",
+        "Demeter"
+      ],
+      "kind": "duo",
+      "icon": "Demeter_Dionysus_01",
+      "requires": [
+        [
+          "DemeterWeaponTrait",
+          "DemeterSecondaryTrait",
+          "DemeterRushTrait",
+          "DemeterShoutTrait"
+        ],
+        [
+          "DionysusRangedTrait"
+        ]
+      ],
+      "excludedBy": [
+        "BlizzardOrbTrait"
+      ]
+    },
+    {
+      "id": "ImpactBoltTrait",
+      "gods": [
+        "Zeus",
+        "Poseidon"
+      ],
+      "kind": "duo",
+      "icon": "Poseidon_Zeus_01",
+      "requires": [
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonRangedTrait",
+          "PoseidonShoutTrait"
+        ],
+        [
+          "ZeusWeaponTrait",
+          "ZeusSecondaryTrait",
+          "ZeusRangedTrait",
+          "ShieldLoadAmmo_ZeusRangedTrait",
+          "ZeusRushTrait",
+          "ZeusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ImprovedPomTrait",
+      "gods": [
+        "Poseidon",
+        "Aphrodite"
+      ],
+      "kind": "duo",
+      "icon": "Aphrodite_Poseidon_01",
+      "requires": [
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonRangedTrait",
+          "PoseidonRushTrait",
+          "PoseidonShoutTrait"
+        ],
+        [
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "AphroditeShoutTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "IncreasedDamageTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Ares_06"
+    },
+    {
+      "id": "InstantChillKill",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Demeter_10",
+      "requires": [
+        [
+          "MaximumChillBlast",
+          "ZeroAmmoBonusTrait"
+        ],
+        [
+          "MaximumChillBonusSlow",
+          "MaximumChillBlast"
+        ],
+        [
+          "ZeroAmmoBonusTrait",
+          "MaximumChillBonusSlow"
+        ]
+      ]
+    },
+    {
+      "id": "JoltDurationTrait",
+      "gods": [
+        "Zeus",
+        "Demeter"
+      ],
+      "kind": "duo",
+      "icon": "Demeter_Zeus_01",
+      "requires": [
+        [
+          "DemeterWeaponTrait",
+          "DemeterSecondaryTrait",
+          "DemeterRushTrait",
+          "DemeterShoutTrait"
+        ],
+        [
+          "ZeusLightningDebuff"
+        ]
+      ]
+    },
+    {
+      "id": "LastStandDamageBonusTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Ares_14"
+    },
+    {
+      "id": "LightningCloudTrait",
+      "gods": [
+        "Zeus",
+        "Dionysus"
+      ],
+      "kind": "duo",
+      "icon": "Zeus_Dionysus_01",
+      "requires": [
+        [
+          "ZeusWeaponTrait",
+          "ZeusSecondaryTrait",
+          "ZeusRushTrait",
+          "ZeusShoutTrait"
+        ],
+        [
+          "DionysusRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "LowHealthDefenseTrait",
+      "gods": [
+        "Dionysus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Dionysus_12"
+    },
+    {
+      "id": "MagnetismTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Hermes_11",
+      "requires": [
+        [
+          "RapidCastTrait",
+          "AmmoReclaimTrait",
+          "FastClearDodgeBonusTrait"
+        ]
+      ],
+      "mirror": "AmmoMetaUpgrade"
+    },
+    {
+      "id": "MaximumChillBlast",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Demeter_07",
+      "requires": [
+        [
+          "DemeterWeaponTrait",
+          "DemeterSecondaryTrait",
+          "DemeterRushTrait",
+          "DemeterShoutTrait",
+          "ShieldLoadAmmo_DemeterRangedTrait",
+          "CastNovaTrait"
+        ]
+      ]
+    },
+    {
+      "id": "MaximumChillBonusSlow",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Demeter_12",
+      "requires": [
+        [
+          "DemeterWeaponTrait",
+          "DemeterSecondaryTrait",
+          "DemeterRushTrait",
+          "DemeterShoutTrait",
+          "ShieldLoadAmmo_DemeterRangedTrait",
+          "CastNovaTrait"
+        ]
+      ]
+    },
+    {
+      "id": "MoreAmmoTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Artemis_07",
+      "requires": [
+        [
+          "ArtemisAmmoExitTrait",
+          "CritBonusTrait"
+        ],
+        [
+          "ArtemisSupportingFireTrait",
+          "ArtemisAmmoExitTrait"
+        ],
+        [
+          "ArtemisSupportingFireTrait",
+          "CritBonusTrait"
+        ]
+      ]
+    },
+    {
+      "id": "MoveSpeedTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_05"
+    },
+    {
+      "id": "NoLastStandRegenerationTrait",
+      "gods": [
+        "Athena",
+        "Demeter"
+      ],
+      "kind": "duo",
+      "icon": "Demeter_Athena_01",
+      "requires": [
+        [
+          "AthenaWeaponTrait",
+          "AthenaSecondaryTrait",
+          "AthenaRangedTrait",
+          "ShieldLoadAmmo_AthenaRangedTrait",
+          "AthenaRushTrait",
+          "AthenaShoutTrait"
+        ],
+        [
+          "DemeterWeaponTrait",
+          "DemeterRushTrait",
+          "DemeterSecondaryTrait",
+          "DemeterRangedTrait",
+          "ShieldLoadAmmo_DemeterRangedTrait",
+          "DemeterShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "OnEnemyDeathDamageInstanceBuffTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Ares_12"
+    },
+    {
+      "id": "OnWrathDamageBuffTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Zeus_13",
+      "requires": [
+        [
+          "AphroditeShoutTrait",
+          "AresShoutTrait",
+          "ArtemisShoutTrait",
+          "AthenaShoutTrait",
+          "DemeterShoutTrait",
+          "DionysusShoutTrait",
+          "PoseidonShoutTrait",
+          "ZeusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "PerfectDashBoltTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Zeus_15"
+    },
+    {
+      "id": "PoisonCritVulnerabilityTrait",
+      "gods": [
+        "Artemis",
+        "Dionysus"
+      ],
+      "kind": "duo",
+      "icon": "Dionysus_Artemis_01",
+      "requires": [
+        [
+          "DionysusWeaponTrait",
+          "DionysusRushTrait",
+          "DionysusSecondaryTrait",
+          "DionysusShoutTrait"
+        ],
+        [
+          "ArtemisWeaponTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisRangedTrait",
+          "ArtemisShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "PoisonTickRateTrait",
+      "gods": [
+        "Ares",
+        "Dionysus"
+      ],
+      "kind": "duo",
+      "icon": "Dionysus_Ares_01",
+      "requires": [
+        [
+          "AresWeaponTrait",
+          "AresSecondaryTrait",
+          "AresRetaliateTrait"
+        ],
+        [
+          "DionysusWeaponTrait",
+          "DionysusRushTrait",
+          "DionysusSecondaryTrait",
+          "DionysusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "PoseidonAresProjectileTrait",
+      "gods": [
+        "Poseidon",
+        "Ares"
+      ],
+      "kind": "duo",
+      "icon": "Poseidon_Ares_01",
+      "requires": [
+        [
+          "AresWeaponTrait",
+          "AresSecondaryTrait",
+          "AresRushTrait",
+          "AresShoutTrait"
+        ],
+        [
+          "PoseidonRangedTrait"
+        ]
+      ],
+      "excludedBy": [
+        "BlizzardOrbTrait",
+        "ArtemisBonusProjectileTrait",
+        "BowLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "PoseidonPickedUpMinorLootTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard"
+    },
+    {
+      "id": "PoseidonRangedTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Poseidon_02",
+      "textOverrides": {
+        "ShieldLoadAmmoTrait": "ShieldLoadAmmo_PoseidonRangedTrait"
+      }
+    },
+    {
+      "id": "PoseidonRushTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "slot",
+      "slot": "dash",
+      "icon": "Boon_Poseidon_03"
+    },
+    {
+      "id": "PoseidonSecondaryTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "slot",
+      "slot": "special",
+      "icon": "Boon_Poseidon_00"
+    },
+    {
+      "id": "PoseidonShoutDurationTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Poseidon_15",
+      "requires": [
+        [
+          "PoseidonShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "PoseidonShoutTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "slot",
+      "slot": "call",
+      "icon": "Boon_Poseidon_04"
+    },
+    {
+      "id": "PoseidonWeaponTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "slot",
+      "slot": "attack",
+      "icon": "Boon_Poseidon_01"
+    },
+    {
+      "id": "PreloadSuperGenerationTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Athena_13",
+      "requires": [
+        [
+          "AphroditeShoutTrait",
+          "AresShoutTrait",
+          "ArtemisShoutTrait",
+          "AthenaShoutTrait",
+          "DemeterShoutTrait",
+          "DionysusShoutTrait",
+          "PoseidonShoutTrait",
+          "ZeusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ProximityArmorTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Aphrodite_07"
+    },
+    {
+      "id": "RapidCastTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_02",
+      "excludedBy": [
+        "BowLoadAmmoTrait",
+        "ShieldLoadAmmoTrait"
+      ],
+      "mirror": "AmmoMetaUpgrade"
+    },
+    {
+      "id": "RaritySuperBoost",
+      "gods": [
+        "Poseidon",
+        "Dionysus"
+      ],
+      "kind": "duo",
+      "icon": "Dionysus_Poseidon_01",
+      "requires": [
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonRangedTrait",
+          "PoseidonRushTrait",
+          "PoseidonShoutTrait"
+        ],
+        [
+          "DionysusWeaponTrait",
+          "DionysusSecondaryTrait",
+          "DionysusRangedTrait",
+          "DionysusRushTrait",
+          "DionysusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ReboundingAthenaCastTrait",
+      "gods": [
+        "Zeus",
+        "Athena"
+      ],
+      "kind": "duo",
+      "icon": "Athena_Zeus_01",
+      "requires": [
+        [
+          "ZeusWeaponTrait",
+          "ZeusSecondaryTrait",
+          "ZeusRushTrait",
+          "ZeusShoutTrait"
+        ],
+        [
+          "AthenaRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "RegeneratingCappedSuperTrait",
+      "gods": [
+        "Zeus",
+        "Aphrodite"
+      ],
+      "kind": "duo",
+      "icon": "Zeus_Aphrodite_01",
+      "requires": [
+        [
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "AphroditeRangedTrait",
+          "AphroditeRushTrait",
+          "AphroditeShoutTrait",
+          "ShieldLoadAmmo_AphroditeRangedTrait"
+        ],
+        [
+          "ZeusWeaponTrait",
+          "ZeusRushTrait",
+          "ZeusSecondaryTrait",
+          "ZeusRangedTrait",
+          "ShieldLoadAmmo_ZeusRangedTrait",
+          "ZeusShoutTrait"
+        ],
+        [
+          "AphroditeShoutTrait",
+          "AresShoutTrait",
+          "ArtemisShoutTrait",
+          "AthenaShoutTrait",
+          "DemeterShoutTrait",
+          "DionysusShoutTrait",
+          "PoseidonShoutTrait",
+          "ZeusShoutTrait"
+        ]
+      ],
+      "excludedBy": [
+        "HadesShoutTrait"
+      ]
+    },
+    {
+      "id": "RegeneratingSuperTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_13",
+      "requires": [
+        [
+          "AphroditeShoutTrait",
+          "AresShoutTrait",
+          "ArtemisShoutTrait",
+          "AthenaShoutTrait",
+          "DemeterShoutTrait",
+          "DionysusShoutTrait",
+          "PoseidonShoutTrait",
+          "ZeusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "RetaliateWeaponTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "standard",
+      "slot": "attack",
+      "icon": "Boon_Zeus_01"
+    },
+    {
+      "id": "RoomRewardBonusTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Poseidon_09"
+    },
+    {
+      "id": "RushRallyTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_07"
+    },
+    {
+      "id": "RushSpeedBoostTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_08"
+    },
+    {
+      "id": "SelfLaserTrait",
+      "gods": [
+        "Aphrodite",
+        "Demeter"
+      ],
+      "kind": "duo",
+      "icon": "Aphrodite_Demeter_01",
+      "requires": [
+        [
+          "DemeterRangedTrait"
+        ],
+        [
+          "AphroditeWeaponTrait",
+          "AphroditeRushTrait",
+          "AphroditeSecondaryTrait",
+          "AphroditeShoutTrait"
+        ]
+      ],
+      "excludedBy": [
+        "HomingLaserTrait"
+      ]
+    },
+    {
+      "id": "ShieldBaseUpgradeTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Shield01",
+      "weapon": "ShieldWeapon"
+    },
+    {
+      "id": "ShieldHitTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Athena_10",
+      "requires": [
+        [
+          "AthenaShieldTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ShieldLoadAmmoTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Shield04",
+      "weapon": "ShieldWeapon"
+    },
+    {
+      "id": "ShieldLoadAmmo_AphroditeRangedTrait",
+      "gods": [
+        "Aphrodite"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Aphrodite_02",
+      "requires": [
+        [
+          "ShieldLoadAmmoTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ShieldLoadAmmo_AresRangedTrait",
+      "gods": [
+        "Ares"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Ares_02",
+      "requires": [
+        [
+          "ShieldLoadAmmoTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ShieldLoadAmmo_ArtemisRangedTrait",
+      "gods": [
+        "Artemis"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Artemis_02",
+      "requires": [
+        [
+          "ShieldLoadAmmoTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ShieldLoadAmmo_AthenaRangedTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Athena_02",
+      "requires": [
+        [
+          "ShieldLoadAmmoTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ShieldLoadAmmo_DemeterRangedTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Demeter_02",
+      "requires": [
+        [
+          "ShieldLoadAmmoTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ShieldLoadAmmo_ZeusRangedTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Zeus_05",
+      "requires": [
+        [
+          "ShieldLoadAmmoTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ShieldRushBonusProjectileTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Shield03",
+      "weapon": "ShieldWeapon"
+    },
+    {
+      "id": "ShieldTwoShieldTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Shield02",
+      "weapon": "ShieldWeapon"
+    },
+    {
+      "id": "SlamExplosionTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Poseidon_08",
+      "requires": [
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonRushTrait",
+          "PoseidonRangedTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "SlipperyTrait",
+      "gods": [
+        "Poseidon"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Poseidon_11",
+      "requires": [
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonRushTrait",
+          "PoseidonRangedTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "SlowProjectileTrait",
+      "gods": [
+        "Athena",
+        "Dionysus"
+      ],
+      "kind": "duo",
+      "icon": "Dionysus_Athena_01",
+      "requires": [
+        [
+          "AthenaWeaponTrait",
+          "AthenaSecondaryTrait",
+          "AthenaRushTrait",
+          "AthenaShoutTrait"
+        ],
+        [
+          "DionysusWeaponTrait",
+          "DionysusSecondaryTrait",
+          "DionysusRushTrait",
+          "DionysusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "SpearBaseUpgradeTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Spear01",
+      "weapon": "SpearWeapon"
+    },
+    {
+      "id": "SpearSpinTravel",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Spear04",
+      "weapon": "SpearWeapon"
+    },
+    {
+      "id": "SpearTeleportTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Spear02",
+      "weapon": "SpearWeapon"
+    },
+    {
+      "id": "SpearWeaveTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Spear03",
+      "weapon": "SpearWeapon"
+    },
+    {
+      "id": "SpeedDamageTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Hermes_15",
+      "requires": [
+        [
+          "MoveSpeedTrait",
+          "RushSpeedBoostTrait",
+          "FastClearDodgeBonusTrait"
+        ]
+      ]
+    },
+    {
+      "id": "StationaryRiftTrait",
+      "gods": [
+        "Ares",
+        "Demeter"
+      ],
+      "kind": "duo",
+      "icon": "Ares_Demeter_01",
+      "requires": [
+        [
+          "AresRangedTrait",
+          "ShieldLoadAmmo_AresRangedTrait"
+        ],
+        [
+          "DemeterWeaponTrait",
+          "DemeterRushTrait",
+          "DemeterSecondaryTrait",
+          "DemeterShoutTrait"
+        ]
+      ],
+      "excludedBy": [
+        "AresHomingTrait"
+      ]
+    },
+    {
+      "id": "StatusImmunityTrait",
+      "gods": [
+        "Poseidon",
+        "Athena"
+      ],
+      "kind": "duo",
+      "icon": "Poseidon_Athena_01",
+      "requires": [
+        [
+          "AthenaWeaponTrait",
+          "AthenaSecondaryTrait",
+          "AthenaRangedTrait",
+          "ShieldLoadAmmo_AthenaRangedTrait",
+          "AthenaShoutTrait"
+        ],
+        [
+          "PoseidonWeaponTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonRangedTrait",
+          "PoseidonShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "SuperGenerationTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Zeus_09",
+      "requires": [
+        [
+          "AphroditeShoutTrait",
+          "AresShoutTrait",
+          "ArtemisShoutTrait",
+          "AthenaShoutTrait",
+          "DemeterShoutTrait",
+          "DionysusShoutTrait",
+          "PoseidonShoutTrait",
+          "ZeusShoutTrait"
+        ]
+      ]
+    },
+    {
+      "id": "SwordBaseUpgradeTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Sword01",
+      "weapon": "SwordWeapon"
+    },
+    {
+      "id": "SwordConsecrationTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Sword04",
+      "weapon": "SwordWeapon"
+    },
+    {
+      "id": "SwordCriticalParryTrait",
+      "gods": [],
+      "kind": "aspect",
+      "icon": "WeaponEnchantment_Sword03",
+      "weapon": "SwordWeapon"
+    },
+    {
+      "id": "TrapDamageTrait",
+      "gods": [
+        "Athena"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Athena_07"
+    },
+    {
+      "id": "TriggerCurseTrait",
+      "gods": [
+        "Athena",
+        "Ares"
+      ],
+      "kind": "duo",
+      "icon": "Athena_Ares_01",
+      "requires": [
+        [
+          "AresWeaponTrait",
+          "AresSecondaryTrait"
+        ],
+        [
+          "AthenaWeaponTrait",
+          "AthenaSecondaryTrait"
+        ]
+      ]
+    },
+    {
+      "id": "UnstoredAmmoDamageTrait",
+      "gods": [
+        "Hermes"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Hermes_02",
+      "requires": [
+        [
+          "AmmoReloadTrait",
+          "FastClearDodgeBonusTrait"
+        ]
+      ],
+      "excludedBy": [
+        "MagnetismTrait"
+      ],
+      "mirror": "ReloadAmmoMetaUpgrade"
+    },
+    {
+      "id": "ZeroAmmoBonusTrait",
+      "gods": [
+        "Demeter"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Demeter_11"
+    },
+    {
+      "id": "ZeusBoltAoETrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Zeus_10",
+      "requires": [
+        [
+          "ZeusSecondaryTrait",
+          "ZeusShoutTrait",
+          "ZeusRushTrait",
+          "ShieldLoadAmmo_ZeusRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ZeusBonusBoltTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Zeus_11",
+      "requires": [
+        [
+          "ZeusSecondaryTrait",
+          "ZeusShoutTrait",
+          "ZeusRushTrait",
+          "ShieldLoadAmmo_ZeusRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ZeusBonusBounceTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Zeus_03",
+      "requires": [
+        [
+          "ZeusWeaponTrait",
+          "ZeusRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ZeusChargedBoltTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "legendary",
+      "icon": "Boon_Zeus_02",
+      "requires": [
+        [
+          "ZeusBonusBounceTrait",
+          "ZeusBoltAoETrait",
+          "ZeusBonusBoltTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ZeusLightningDebuff",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "standard",
+      "icon": "Boon_Zeus_12",
+      "requires": [
+        [
+          "ZeusSecondaryTrait",
+          "ZeusShoutTrait",
+          "ZeusRushTrait",
+          "RetaliateWeaponTrait",
+          "ZeusWeaponTrait",
+          "ZeusRangedTrait",
+          "PerfectDashBoltTrait",
+          "ShieldLoadAmmo_ZeusRangedTrait"
+        ]
+      ]
+    },
+    {
+      "id": "ZeusRangedTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "slot",
+      "slot": "cast",
+      "icon": "Boon_Zeus_05",
+      "excludedBy": [
+        "ShieldLoadAmmoTrait"
+      ]
+    },
+    {
+      "id": "ZeusRushTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "slot",
+      "slot": "dash",
+      "icon": "Boon_Zeus_06"
+    },
+    {
+      "id": "ZeusSecondaryTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "slot",
+      "slot": "special",
+      "icon": "Boon_Zeus_00"
+    },
+    {
+      "id": "ZeusShoutTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "slot",
+      "slot": "call",
+      "icon": "Boon_Zeus_07"
+    },
+    {
+      "id": "ZeusWeaponTrait",
+      "gods": [
+        "Zeus"
+      ],
+      "kind": "slot",
+      "slot": "attack",
+      "icon": "Boon_Zeus_04"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "AchAccessAdminChamber",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredCosmetics": [
+          "OfficeDoorUnlockItem"
+        ],
+        "RequiredRoom": "DeathAreaOffice"
+      }
+    },
+    {
+      "id": "AchAresKills",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "AresEarnKills"
+        ]
+      }
+    },
+    {
+      "id": "AchBeatCharon",
+      "scope": "run",
+      "rule": "data",
+      "requirements": {
+        "RequiredTrait": "DiscountTrait"
+      }
+    },
+    {
+      "id": "AchBronzeSkellyTrophy",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredTextLines": [
+          "TrophyQuest_BronzeUnlocked_01"
+        ]
+      }
+    },
+    {
+      "id": "AchBuffedButterfly",
+      "scope": "run",
+      "rule": "code"
+    },
+    {
+      "id": "AchBuffedPlume",
+      "scope": "run",
+      "rule": "code"
+    },
+    {
+      "id": "AchCerberusPets",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredMinValues": {
+          "NumCerberusPettings": 10
+        }
+      }
+    },
+    {
+      "id": "AchClearAnyRun",
+      "scope": "run",
+      "rule": "data",
+      "requirements": {
+        "RequiresRunCleared": true
+      }
+    },
+    {
+      "id": "AchClearAsphodel",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredSeenRooms": [
+          "C_Intro"
+        ]
+      }
+    },
+    {
+      "id": "AchClearElysium",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredSeenRooms": [
+          "D_Intro"
+        ]
+      }
+    },
+    {
+      "id": "AchClearElysiumEM",
+      "scope": "run",
+      "rule": "data",
+      "requirements": {
+        "RequireEncounterCompleted": "BossTheseusAndMinotaur",
+        "RequiredMinActiveMetaUpgradeLevel": {
+          "Count": 3,
+          "Name": "BossDifficultyShrineUpgrade"
+        },
+        "RequiredRoom": "C_PostBoss01"
+      }
+    },
+    {
+      "id": "AchClearHeatGate",
+      "scope": "run",
+      "rule": "code"
+    },
+    {
+      "id": "AchClearRun4thAspect",
+      "scope": "run",
+      "rule": "data",
+      "requirements": {
+        "RequiredOneOfTraits": [
+          "SwordConsecrationTrait",
+          "SpearSpinTravel",
+          "ShieldLoadAmmoTrait",
+          "BowBondTrait",
+          "FistDetonateTrait",
+          "GunLoadedGrenadeTrait"
+        ],
+        "RequiresInRun": true,
+        "RequiresRunCleared": true
+      }
+    },
+    {
+      "id": "AchClearTartarus",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredSeenRooms": [
+          "B_Intro"
+        ]
+      }
+    },
+    {
+      "id": "AchCrushedThanatos",
+      "scope": "run",
+      "rule": "code"
+    },
+    {
+      "id": "AchEliteAttributeKills",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "EliteAttributeKills"
+        ]
+      }
+    },
+    {
+      "id": "AchFishFromEachBiome",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredAnyCaughtFishTypesOfEach": [
+          [
+            "Fish_Tartarus_Common_01",
+            "Fish_Tartarus_Rare_01",
+            "Fish_Tartarus_Legendary_01"
+          ],
+          [
+            "Fish_Asphodel_Common_01",
+            "Fish_Asphodel_Rare_01",
+            "Fish_Asphodel_Legendary_01"
+          ],
+          [
+            "Fish_Elysium_Common_01",
+            "Fish_Elysium_Rare_01",
+            "Fish_Elysium_Legendary_01"
+          ],
+          [
+            "Fish_Styx_Common_01",
+            "Fish_Styx_Rare_01",
+            "Fish_Styx_Legendary_01"
+          ],
+          [
+            "Fish_Surface_Common_01",
+            "Fish_Surface_Rare_01",
+            "Fish_Surface_Legendary_01"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "AchForgedBond",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredAnyTextLines": [
+          "CerberusGift09",
+          "AchillesGift09_A",
+          "NyxGift09",
+          "HypnosGift08",
+          "CharonGift07",
+          "MegaeraGift10",
+          "ThanatosGift10",
+          "OrpheusGift08",
+          "BecameCloseWithDusa01",
+          "SkellyGift09",
+          "SisyphusGift09_A",
+          "EurydiceGift08",
+          "PatroclusGift08_A",
+          "PersephoneGift09",
+          "HadesGift05",
+          "ZeusGift07",
+          "PoseidonGift07",
+          "AthenaGift07",
+          "AphroditeGift07",
+          "ArtemisGift07",
+          "AresGift07",
+          "DionysusGift07",
+          "DemeterGift07",
+          "ChaosGift08",
+          "HermesGift08",
+          "HermesGift08B"
+        ]
+      }
+    },
+    {
+      "id": "AchFoundAllSummons",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredTextLines": [
+          "MegaeraGift07",
+          "ThanatosGift07_A",
+          "DusaGift07",
+          "SkellyGift07",
+          "SisyphusGift07_A",
+          "AchillesGift07_A"
+        ]
+      }
+    },
+    {
+      "id": "AchFoundKeepsakes",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredAnyOtherTextLines": [
+          "DemeterGift01",
+          "DemeterGift02",
+          "DemeterGift03"
+        ],
+        "RequiredAnyTextLines": [
+          "HermesGift01",
+          "HermesGift01B"
+        ],
+        "RequiredTextLines": [
+          "CerberusGift01",
+          "AchillesGift01",
+          "NyxGift01",
+          "HypnosGift01",
+          "CharonGift01",
+          "MegaeraGift01",
+          "ThanatosGift01",
+          "OrpheusGift01",
+          "DusaGift01",
+          "SkellyGift01",
+          "SisyphusGift01",
+          "EurydiceGift01",
+          "PatroclusGift01",
+          "PersephoneGift01",
+          "HadesGift02",
+          "AthenaGift01",
+          "ZeusGift01",
+          "PoseidonGift01",
+          "AphroditeGift01",
+          "ArtemisGift01",
+          "AresGift01",
+          "DionysusGift01",
+          "ChaosGift01"
+        ]
+      }
+    },
+    {
+      "id": "AchFoundSummon",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredAnyAssistKeepsake": true
+      }
+    },
+    {
+      "id": "AchGreaterCall",
+      "scope": "run",
+      "rule": "code"
+    },
+    {
+      "id": "AchGreaterCallSpurned",
+      "scope": "run",
+      "rule": "code"
+    },
+    {
+      "id": "AchLeveledKeepsakes",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiresMaxKeepsakes": [
+          "MaxHealthKeepsakeTrait",
+          "DirectionalArmorTrait",
+          "BackstabAlphaStrikeTrait",
+          "BonusMoneyTrait",
+          "ShopDurationTrait",
+          "LowHealthDamageTrait",
+          "PerfectClearDamageBonusTrait",
+          "DistanceDamageTrait",
+          "LifeOnUrnTrait",
+          "ReincarnationTrait",
+          "VanillaTrait",
+          "ShieldBossTrait",
+          "ShieldAfterHitTrait",
+          "ChamberStackTrait",
+          "HadesShoutKeepsake",
+          "ForceAthenaBoonTrait",
+          "ForceZeusBoonTrait",
+          "ForcePoseidonBoonTrait",
+          "ForceAphroditeBoonTrait",
+          "ForceArtemisBoonTrait",
+          "ForceAresBoonTrait",
+          "ForceDionysusBoonTrait",
+          "ForceDemeterBoonTrait",
+          "FastClearDodgeBonusTrait",
+          "ChaosBoonTrait"
+        ]
+      }
+    },
+    {
+      "id": "AchManyBrokerTrades",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredMinValues": {
+          "MarketSales": 20
+        }
+      }
+    },
+    {
+      "id": "AchManyCosmetics",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredNumCosmeticsMin": 50
+      }
+    },
+    {
+      "id": "AchManyQuests",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredMinQuestsComplete": 15
+      }
+    },
+    {
+      "id": "AchMaxedAnyAspect",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredMinMaxedWeaponEnchantments": 1
+      }
+    },
+    {
+      "id": "AchMeetChthonicGods",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "MeetChthonicGods"
+        ]
+      }
+    },
+    {
+      "id": "AchMirrorAllUnlocked",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredAllMetaUpgradesInvestment": 1
+      }
+    },
+    {
+      "id": "AchMirrorUpgradeClears",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "MirrorUpgrades"
+        ]
+      }
+    },
+    {
+      "id": "AchMyrmidonReunion",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireAnyQuestsComplete": [
+          "AchillesPatroclusReunion_A",
+          "AchillesPatroclusReunion_B",
+          "AchillesPatroclusReunion_C"
+        ]
+      }
+    },
+    {
+      "id": "AchNyxChaosReunion",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "NyxChaosReunion"
+        ]
+      }
+    },
+    {
+      "id": "AchOlympiansCodex",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredCodexEntries": {
+          "AphroditeUpgrade": 3,
+          "AresUpgrade": 3,
+          "ArtemisUpgrade": 3,
+          "AthenaUpgrade": 3,
+          "DemeterUpgrade": 4,
+          "DionysusUpgrade": 3,
+          "HermesUpgrade": 3,
+          "PoseidonUpgrade": 3,
+          "ZeusUpgrade": 3
+        }
+      }
+    },
+    {
+      "id": "AchOrpheusSingsAgain",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredAnyTextLines": [
+          "OrpheusSingsAgain01",
+          "OrpheusSingsAgain01_B",
+          "OrpheusSingsAgain01_C",
+          "OrpheusSingsAgain01_D",
+          "OrpheusSingsAgain02",
+          "OrpheusSingsAgain03",
+          "OrpheusSingsAgain03_B"
+        ]
+      }
+    },
+    {
+      "id": "AchPactUpgradesClears",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "PactUpgrades"
+        ]
+      }
+    },
+    {
+      "id": "AchPickedManyBoons",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredUniqueGodTraitsTaken": 100
+      }
+    },
+    {
+      "id": "AchPickedManyHammers",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredUniqueWeaponUpgradesTaken": 50
+      }
+    },
+    {
+      "id": "AchPurgedLegendBoon",
+      "scope": "run",
+      "rule": "code"
+    },
+    {
+      "id": "AchReachedEnding",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredTextLines": [
+          "Ending01"
+        ]
+      }
+    },
+    {
+      "id": "AchReachedEpilogue",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredTextLines": [
+          "OlympianReunionQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "AchSilverSkellyTrophy",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredTextLines": [
+          "TrophyQuest_SilverUnlocked_01"
+        ]
+      }
+    },
+    {
+      "id": "AchSingersReunion",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "OrpheusEurydiceReunion"
+        ]
+      }
+    },
+    {
+      "id": "AchSisyphusLiberation",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "SisyphusLiberation"
+        ]
+      }
+    },
+    {
+      "id": "AchSkellyKills",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredKills": {
+          "TrainingMelee": 15
+        }
+      }
+    },
+    {
+      "id": "AchUnlockedAllWeapons",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredWeaponsUnlocked": [
+          "SwordWeapon",
+          "SpearWeapon",
+          "ShieldWeapon",
+          "BowWeapon",
+          "FistWeapon",
+          "GunWeapon"
+        ]
+      }
+    },
+    {
+      "id": "AchWeaponClears",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequireQuestsComplete": [
+          "WeaponClears"
+        ]
+      }
+    },
+    {
+      "id": "AchWellShopItems",
+      "scope": "run",
+      "rule": "data",
+      "requirements": {
+        "RequiredRunMinValues": {
+          "WellPurchases": 9
+        }
+      }
+    },
+    {
+      "id": "ActUnlockedAllAspects",
+      "scope": "meta",
+      "rule": "data",
+      "requirements": {
+        "RequiredMinUnlockedWeaponEnchantments": 18
+      }
+    }
+  ]
+}

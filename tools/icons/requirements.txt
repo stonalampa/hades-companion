@@ -1,0 +1,3 @@
+deppth @ https://github.com/quaerus/deppth/releases/download/v0.1.1.0/deppth-0.1.1.0-py3-none-any.whl
+pillow
+lz4
