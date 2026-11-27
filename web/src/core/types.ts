@@ -35,6 +35,8 @@ export interface Boon {
   weapon?: string
   /** While holding the key (an aspect) the game shows this boon under another text entry. */
   textOverrides?: Record<BoonId, string>
+  /** Keepsakes: chambers cleared with it equipped to reach max level. */
+  maxChambers?: number
 }
 
 export interface Weapon {
@@ -53,6 +55,12 @@ export interface Achievement {
   requirements?: Record<string, unknown>
 }
 
+/** A Fated List prophecy; `requirements` use the same keys as achievements. */
+export interface Quest {
+  id: string
+  requirements?: Record<string, unknown>
+}
+
 export interface Dataset {
   game: GameId
   /** Source file name -> sha256, for provenance. */
@@ -62,6 +70,10 @@ export interface Dataset {
   /** Keepsake IDs in the game's rack order (each is also a boon of kind keepsake). */
   keepsakes: BoonId[]
   achievements: Achievement[]
+  /** Fated List, in game order. */
+  quests: Quest[]
+  /** Daedalus hammer trait IDs. */
+  hammers: string[]
 }
 
 /** Game text, loaded locally from the player's install; never bundled. */

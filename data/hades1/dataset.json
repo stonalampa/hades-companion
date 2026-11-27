@@ -4,6 +4,7 @@
     "AchievementData.lua": "90ad42d916e4a9e71b27df69a88e4ed64a5560fe2e62f96b5e0d7b8e7baf261b",
     "GiftData.lua": "e5da8af1a84ebce5edf7065e371d6aa3dc8583081541a7c0cd3e8a79620c69fd",
     "LootData.lua": "20081ab6f36c04e1ed0091fe67336d3662b35168179a77d309573e2af5ff7595",
+    "QuestData.lua": "b4701d8f307aa1885978742a86f00279b1d5afb28223102c9240c055ba5d086e",
     "TraitData.lua": "ddb690ad6274550bf5103d8875b5ca9063b5bb9fe8a6c08d3e011f7746338d18",
     "WeaponSets.lua": "2672ff2c4ab332b1e43645a26d9dcd95a46e385ec4367ef1511253e9986b73b7",
     "WeaponUpgradeData.lua": "f58d2d6153c5b4b242105b47b3f57e7201fe11526dbce7aaa574437e94a673d7"
@@ -693,7 +694,8 @@
       "id": "BackstabAlphaStrikeTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Shawl"
+      "icon": "Keepsake_Shawl",
+      "maxChambers": 75
     },
     {
       "id": "BlizzardOrbTrait",
@@ -749,7 +751,8 @@
       "id": "BonusMoneyTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Purse"
+      "icon": "Keepsake_Purse",
+      "maxChambers": 75
     },
     {
       "id": "BossDamageTrait",
@@ -845,13 +848,15 @@
       "id": "ChamberStackTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Bloom"
+      "icon": "Keepsake_Bloom",
+      "maxChambers": 75
     },
     {
       "id": "ChaosBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Egg"
+      "icon": "Keepsake_Egg",
+      "maxChambers": 75
     },
     {
       "id": "CharmTrait",
@@ -1210,7 +1215,8 @@
       "id": "DirectionalArmorTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Bracer"
+      "icon": "Keepsake_Bracer",
+      "maxChambers": 75
     },
     {
       "id": "DislodgeAmmoTrait",
@@ -1223,7 +1229,8 @@
       "id": "DistanceDamageTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Memory"
+      "icon": "Keepsake_Memory",
+      "maxChambers": 75
     },
     {
       "id": "DodgeChanceTrait",
@@ -1282,7 +1289,8 @@
       "id": "FastClearDodgeBonusTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Feather"
+      "icon": "Keepsake_Feather",
+      "maxChambers": 75
     },
     {
       "id": "FishingTrait",
@@ -1338,49 +1346,57 @@
       "id": "ForceAphroditeBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Rose"
+      "icon": "Keepsake_Rose",
+      "maxChambers": 75
     },
     {
       "id": "ForceAresBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Vial"
+      "icon": "Keepsake_Vial",
+      "maxChambers": 75
     },
     {
       "id": "ForceArtemisBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Arrowhead"
+      "icon": "Keepsake_Arrowhead",
+      "maxChambers": 75
     },
     {
       "id": "ForceAthenaBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Pendant"
+      "icon": "Keepsake_Pendant",
+      "maxChambers": 75
     },
     {
       "id": "ForceDemeterBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Cornucopia"
+      "icon": "Keepsake_Cornucopia",
+      "maxChambers": 75
     },
     {
       "id": "ForceDionysusBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Goblet"
+      "icon": "Keepsake_Goblet",
+      "maxChambers": 75
     },
     {
       "id": "ForcePoseidonBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Conch"
+      "icon": "Keepsake_Conch",
+      "maxChambers": 75
     },
     {
       "id": "ForceZeusBoonTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Signet"
+      "icon": "Keepsake_Signet",
+      "maxChambers": 75
     },
     {
       "id": "FountainDamageBonusTrait",
@@ -1422,7 +1438,8 @@
       "id": "HadesShoutKeepsake",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Badge"
+      "icon": "Keepsake_Badge",
+      "maxChambers": 75
     },
     {
       "id": "HealthRewardBonusTrait",
@@ -1655,7 +1672,8 @@
       "id": "LifeOnUrnTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Duster"
+      "icon": "Keepsake_Duster",
+      "maxChambers": 75
     },
     {
       "id": "LightningCloudTrait",
@@ -1681,7 +1699,8 @@
       "id": "LowHealthDamageTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Earring"
+      "icon": "Keepsake_Earring",
+      "maxChambers": 75
     },
     {
       "id": "LowHealthDefenseTrait",
@@ -1711,7 +1730,8 @@
       "id": "MaxHealthKeepsakeTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Collar"
+      "icon": "Keepsake_Collar",
+      "maxChambers": 75
     },
     {
       "id": "MaximumChillBlast",
@@ -1838,7 +1858,8 @@
       "id": "PerfectClearDamageBonusTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Butterfly"
+      "icon": "Keepsake_Butterfly",
+      "maxChambers": 75
     },
     {
       "id": "PerfectDashBoltTrait",
@@ -2136,7 +2157,8 @@
       "id": "ReincarnationTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Skelly_Tooth"
+      "icon": "Keepsake_Skelly_Tooth",
+      "maxChambers": 75
     },
     {
       "id": "RetaliateWeaponTrait",
@@ -2197,7 +2219,8 @@
       "id": "ShieldAfterHitTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Spear"
+      "icon": "Keepsake_Spear",
+      "maxChambers": 75
     },
     {
       "id": "ShieldBaseUpgradeTrait",
@@ -2210,7 +2233,8 @@
       "id": "ShieldBossTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Acorn"
+      "icon": "Keepsake_Acorn",
+      "maxChambers": 75
     },
     {
       "id": "ShieldHitTrait",
@@ -2334,7 +2358,8 @@
       "id": "ShopDurationTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Hourglass"
+      "icon": "Keepsake_Hourglass",
+      "maxChambers": 75
     },
     {
       "id": "SlamExplosionTrait",
@@ -2574,7 +2599,8 @@
       "id": "VanillaTrait",
       "gods": [],
       "kind": "keepsake",
-      "icon": "Keepsake_Shackle"
+      "icon": "Keepsake_Shackle",
+      "maxChambers": 75
     },
     {
       "id": "ZeroAmmoBonusTrait",
@@ -3318,5 +3344,916 @@
         "RequiredMinUnlockedWeaponEnchantments": 18
       }
     }
+  ],
+  "quests": [
+    {
+      "id": "OlympianReunion",
+      "requirements": {
+        "RequiredTextLines": [
+          "ZeusAboutOlympianReunionQuest01",
+          "PoseidonAboutOlympianReunionQuest01",
+          "DemeterAboutOlympianReunionQuest01",
+          "AthenaAboutOlympianReunionQuest01",
+          "AphroditeAboutOlympianReunionQuest01",
+          "AresAboutOlympianReunionQuest01",
+          "ArtemisAboutOlympianReunionQuest01",
+          "DionysusAboutOlympianReunionQuest01",
+          "HermesAboutOlympianReunionQuest01",
+          "OlympianReunionQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "EpilogueSetUp",
+      "requirements": {
+        "RequiredTextLines": [
+          "PersephoneAboutOlympianReunionQuest01"
+        ]
+      }
+    },
+    {
+      "id": "FirstClear",
+      "requirements": {
+        "RequiredMinRunsCleared": 1
+      }
+    },
+    {
+      "id": "MeetOlympians",
+      "requirements": {
+        "RequiredTextLines": [
+          "ZeusFirstPickUp",
+          "PoseidonFirstPickUp",
+          "AthenaFirstPickUp",
+          "DionysusFirstPickUp",
+          "AphroditeFirstPickUp",
+          "AresFirstPickUp",
+          "ArtemisFirstPickUp"
+        ]
+      }
+    },
+    {
+      "id": "MeetChthonicGods",
+      "requirements": {
+        "RequiredMinNPCInteractions": {
+          "NPC_Charon_01": 1,
+          "NPC_FurySister_01": 1,
+          "NPC_Hades_01": 1,
+          "NPC_Hypnos_01": 1,
+          "NPC_Nyx_01": 1,
+          "NPC_Thanatos_01": 1
+        },
+        "RequiredTextLines": [
+          "Fury2FirstAppearance",
+          "Fury3FirstAppearance",
+          "ChaosFirstPickUp"
+        ]
+      }
+    },
+    {
+      "id": "NyxChaosReunion",
+      "requirements": {
+        "RequiredTextLines": [
+          "NyxInChaos01"
+        ]
+      }
+    },
+    {
+      "id": "AchillesPatroclusReunion_A",
+      "requirements": {
+        "RequiredTextLines": [
+          "MyrmidonReunionQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "AchillesPatroclusReunion_B"
+    },
+    {
+      "id": "AchillesPatroclusReunion_C"
+    },
+    {
+      "id": "OrpheusRelease",
+      "requirements": {
+        "RequiredMinNPCInteractions": {
+          "NPC_Orpheus_01": 1
+        }
+      }
+    },
+    {
+      "id": "OrpheusEurydiceReunion",
+      "requirements": {
+        "RequiredTextLines": [
+          "OrpheusAboutSingersReunionQuest01"
+        ]
+      }
+    },
+    {
+      "id": "SisyphusLiberation",
+      "requirements": {
+        "RequiredTextLines": [
+          "SisyphusLiberationQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "SkellyTrueDeath",
+      "requirements": {
+        "RequiredTextLines": [
+          "SkellyTrueDeathQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "SkellyTrueDeath_B"
+    },
+    {
+      "id": "DusaLoungeRenovation",
+      "requirements": {
+        "RequiredTextLines": [
+          "DusaLoungeRenovationQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "ChaosKeepsakeEscape",
+      "requirements": {
+        "RequiredTextLines": [
+          "LordHadesChaosSurfaceQuestDefeat01"
+        ]
+      }
+    },
+    {
+      "id": "PoseidonBeatTheseus",
+      "requirements": {
+        "RequiredTextLines": [
+          "PoseidonBeatTheseusQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "AresEarnKills",
+      "requirements": {
+        "RequiredTextLines": [
+          "AresKillQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "HermesBeatCharon",
+      "requirements": {
+        "RequiredTextLines": [
+          "BossCharonHermesQuestComplete01"
+        ]
+      }
+    },
+    {
+      "id": "AthenaUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "AthenaWeaponTrait",
+          "AthenaSecondaryTrait",
+          "AthenaRushTrait",
+          "AthenaRangedTrait",
+          "AthenaShoutTrait",
+          "TrapDamageTrait",
+          "EnemyDamageTrait",
+          "AthenaRetaliateTrait",
+          "PreloadSuperGenerationTrait",
+          "AthenaBackstabDebuffTrait",
+          "AthenaShieldTrait"
+        ]
+      }
+    },
+    {
+      "id": "ZeusUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "ZeusWeaponTrait",
+          "ZeusRushTrait",
+          "ZeusRangedTrait",
+          "ZeusSecondaryTrait",
+          "ZeusShoutTrait",
+          "RetaliateWeaponTrait",
+          "SuperGenerationTrait",
+          "OnWrathDamageBuffTrait",
+          "PerfectDashBoltTrait",
+          "ZeusBonusBounceTrait",
+          "ZeusLightningDebuff",
+          "ZeusBoltAoETrait",
+          "ZeusBonusBoltTrait"
+        ]
+      }
+    },
+    {
+      "id": "PoseidonUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "PoseidonWeaponTrait",
+          "PoseidonSecondaryTrait",
+          "PoseidonRushTrait",
+          "PoseidonRangedTrait",
+          "PoseidonShoutTrait",
+          "EncounterStartOffenseBuffTrait",
+          "RoomRewardBonusTrait",
+          "DefensiveSuperGenerationTrait",
+          "PoseidonShoutDurationTrait",
+          "BonusCollisionTrait",
+          "SlamExplosionTrait",
+          "SlipperyTrait",
+          "BossDamageTrait"
+        ]
+      }
+    },
+    {
+      "id": "AphroditeUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "AphroditeWeaponTrait",
+          "AphroditeSecondaryTrait",
+          "AphroditeRushTrait",
+          "AphroditeRangedTrait",
+          "AphroditeShoutTrait",
+          "AphroditeRangedBonusTrait",
+          "AphroditeRetaliateTrait",
+          "AphroditeDeathTrait",
+          "ProximityArmorTrait",
+          "HealthRewardBonusTrait",
+          "AphroditeDurationTrait",
+          "AphroditeWeakenTrait",
+          "AphroditePotencyTrait"
+        ]
+      }
+    },
+    {
+      "id": "AresUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "AresWeaponTrait",
+          "AresSecondaryTrait",
+          "AresRushTrait",
+          "AresRangedTrait",
+          "AresShoutTrait",
+          "AresRetaliateTrait",
+          "IncreasedDamageTrait",
+          "OnEnemyDeathDamageInstanceBuffTrait",
+          "LastStandDamageBonusTrait",
+          "AresLongCurseTrait",
+          "AresLoadCurseTrait",
+          "AresAoETrait",
+          "AresDragTrait"
+        ]
+      }
+    },
+    {
+      "id": "ArtemisUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "ArtemisWeaponTrait",
+          "ArtemisRushTrait",
+          "ArtemisRangedTrait",
+          "ArtemisSecondaryTrait",
+          "ArtemisShoutTrait",
+          "CritBonusTrait",
+          "ArtemisSupportingFireTrait",
+          "CritVulnerabilityTrait",
+          "ArtemisCriticalTrait",
+          "CriticalBufferMultiplierTrait",
+          "CriticalSuperGenerationTrait",
+          "ArtemisAmmoExitTrait"
+        ]
+      }
+    },
+    {
+      "id": "DionysusUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "DionysusWeaponTrait",
+          "DionysusSecondaryTrait",
+          "DionysusRushTrait",
+          "DionysusRangedTrait",
+          "DionysusShoutTrait",
+          "DoorHealTrait",
+          "LowHealthDefenseTrait",
+          "FountainDamageBonusTrait",
+          "DionysusSpreadTrait",
+          "DionysusSlowTrait",
+          "DionysusPoisonPowerTrait",
+          "DionysusDefenseTrait"
+        ]
+      }
+    },
+    {
+      "id": "HermesUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "HermesShoutDodge",
+          "HermesWeaponTrait",
+          "HermesSecondaryTrait",
+          "RushRallyTrait",
+          "MoveSpeedTrait",
+          "RushSpeedBoostTrait",
+          "RapidCastTrait",
+          "BonusDashTrait",
+          "DodgeChanceTrait",
+          "RegeneratingSuperTrait",
+          "ChamberGoldTrait",
+          "AmmoReclaimTrait",
+          "SpeedDamageTrait"
+        ]
+      }
+    },
+    {
+      "id": "DemeterUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "DemeterWeaponTrait",
+          "DemeterRushTrait",
+          "DemeterRangedTrait",
+          "DemeterSecondaryTrait",
+          "DemeterShoutTrait",
+          "CastNovaTrait",
+          "DemeterRangedBonusTrait",
+          "DemeterRetaliateTrait",
+          "ZeroAmmoBonusTrait",
+          "MaximumChillBlast",
+          "MaximumChillBonusSlow"
+        ]
+      }
+    },
+    {
+      "id": "LegendaryUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "ZeusChargedBoltTrait",
+          "DoubleCollisionTrait",
+          "ShieldHitTrait",
+          "AresCursedRiftTrait",
+          "CharmTrait",
+          "MoreAmmoTrait",
+          "DionysusComboVulnerability",
+          "MagnetismTrait",
+          "UnstoredAmmoDamageTrait",
+          "InstantChillKill"
+        ]
+      }
+    },
+    {
+      "id": "SynergyUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "LightningCloudTrait",
+          "AutoRetaliateTrait",
+          "ImpactBoltTrait",
+          "ReboundingAthenaCastTrait",
+          "TriggerCurseTrait",
+          "SlowProjectileTrait",
+          "ArtemisReflectBuffTrait",
+          "AresHomingTrait",
+          "AmmoBoltTrait",
+          "HeartsickCritDamageTrait",
+          "CurseSickTrait",
+          "ImprovedPomTrait",
+          "DionysusAphroditeStackIncreaseTrait",
+          "RaritySuperBoost",
+          "HomingLaserTrait",
+          "IceStrikeArrayTrait",
+          "BlizzardOrbTrait",
+          "JoltDurationTrait",
+          "PoseidonAresProjectileTrait",
+          "ArtemisBonusProjectileTrait",
+          "CastBackstabTrait",
+          "PoisonTickRateTrait",
+          "SelfLaserTrait",
+          "StationaryRiftTrait",
+          "NoLastStandRegenerationTrait",
+          "RegeneratingCappedSuperTrait",
+          "StatusImmunityTrait",
+          "PoisonCritVulnerabilityTrait"
+        ]
+      }
+    },
+    {
+      "id": "ChaosBlessings",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "ChaosBlessingMeleeTrait",
+          "ChaosBlessingRangedTrait",
+          "ChaosBlessingAmmoTrait",
+          "ChaosBlessingMaxHealthTrait",
+          "ChaosBlessingBoonRarityTrait",
+          "ChaosBlessingMoneyTrait",
+          "ChaosBlessingMetapointTrait",
+          "ChaosBlessingSecondaryTrait",
+          "ChaosBlessingDashAttackTrait",
+          "ChaosBlessingBackstabTrait",
+          "ChaosBlessingAlphaStrikeTrait",
+          "ChaosBlessingExtraChanceTrait"
+        ]
+      }
+    },
+    {
+      "id": "ChaosCurses",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "ChaosCurseNoMoneyTrait",
+          "ChaosCurseAmmoUseDelayTrait",
+          "ChaosCursePrimaryAttackTrait",
+          "ChaosCurseSecondaryAttackTrait",
+          "ChaosCurseCastAttackTrait",
+          "ChaosCurseDeathWeaponTrait",
+          "ChaosCurseHiddenRoomReward",
+          "ChaosCurseDamageTrait",
+          "ChaosCurseTrapDamageTrait",
+          "ChaosCurseHealthTrait",
+          "ChaosCurseMoveSpeedTrait",
+          "ChaosCurseDashRangeTrait",
+          "ChaosCurseSpawnTrait"
+        ]
+      }
+    },
+    {
+      "id": "WeaponUnlocks",
+      "requirements": {
+        "RequiredWeaponsUnlocked": [
+          "SwordWeapon",
+          "SpearWeapon",
+          "ShieldWeapon",
+          "BowWeapon",
+          "FistWeapon",
+          "GunWeapon"
+        ]
+      }
+    },
+    {
+      "id": "SwordHammerUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "SwordTwoComboTrait",
+          "SwordSecondaryAreaDamageTrait",
+          "SwordHeavySecondStrikeTrait",
+          "SwordThrustWaveTrait",
+          "SwordSecondaryDoubleAttackTrait",
+          "SwordHealthBufferDamageTrait",
+          "SwordDoubleDashAttackTrait",
+          "SwordCriticalTrait",
+          "SwordBackstabTrait",
+          "SwordCursedLifeStealTrait",
+          "SwordGoldDamageTrait",
+          "SwordBlinkTrait"
+        ]
+      }
+    },
+    {
+      "id": "ArthurAspectEscape",
+      "requirements": {
+        "RequiredPlayed": [
+          "/VO/ZagreusField_3250"
+        ]
+      }
+    },
+    {
+      "id": "RamaAspectEscape",
+      "requirements": {
+        "RequiredPlayed": [
+          "/VO/ZagreusField_3251"
+        ]
+      }
+    },
+    {
+      "id": "BeowulfAspectEscape",
+      "requirements": {
+        "RequiredPlayed": [
+          "/VO/ZagreusField_3691"
+        ]
+      }
+    },
+    {
+      "id": "GilgameshAspectEscape",
+      "requirements": {
+        "RequiredPlayed": [
+          "/VO/ZagreusField_4656"
+        ]
+      }
+    },
+    {
+      "id": "LuciferAspectEscape",
+      "requirements": {
+        "RequiredPlayed": [
+          "/VO/ZagreusField_3690"
+        ]
+      }
+    },
+    {
+      "id": "BowHammerUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "BowDoubleShotTrait",
+          "BowLongRangeDamageTrait",
+          "BowSlowChargeDamageTrait",
+          "BowTapFireTrait",
+          "BowPenetrationTrait",
+          "BowPowerShotTrait",
+          "BowSecondaryBarrageTrait",
+          "BowTripleShotTrait",
+          "BowSecondaryFocusedFireTrait",
+          "BowChainShotTrait",
+          "BowCloseAttackTrait",
+          "BowConsecutiveBarrageTrait"
+        ]
+      }
+    },
+    {
+      "id": "ShieldHammerUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "ShieldDashAOETrait",
+          "ShieldRushProjectileTrait",
+          "ShieldThrowFastTrait",
+          "ShieldThrowCatchExplode",
+          "ShieldChargeHealthBufferTrait",
+          "ShieldChargeSpeedTrait",
+          "ShieldBashDamageTrait",
+          "ShieldPerfectRushTrait",
+          "ShieldThrowElectiveCharge",
+          "ShieldThrowEmpowerTrait",
+          "ShieldBlockEmpowerTrait",
+          "ShieldThrowRushTrait"
+        ]
+      }
+    },
+    {
+      "id": "SpearHammerUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "SpearReachAttack",
+          "SpearAutoAttack",
+          "SpearThrowExplode",
+          "SpearThrowBounce",
+          "SpearThrowPenetrate",
+          "SpearThrowCritical",
+          "SpearSpinDamageRadius",
+          "SpearSpinChargeLevelTime",
+          "SpearDashMultiStrike",
+          "SpearThrowElectiveCharge",
+          "SpearSpinChargeAreaDamageTrait",
+          "SpearAttackPhalanxTrait"
+        ]
+      }
+    },
+    {
+      "id": "GuanYuAspectEscape",
+      "requirements": {
+        "RequiredPlayed": [
+          "/VO/ZagreusField_3231"
+        ]
+      }
+    },
+    {
+      "id": "FistHammerUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "FistReachAttackTrait",
+          "FistAttackFinisherTrait",
+          "FistConsecutiveAttackTrait",
+          "FistDashAttackHealthBufferTrait",
+          "FistDoubleDashSpecialTrait",
+          "FistTeleportSpecialTrait",
+          "FistChargeSpecialTrait",
+          "FistKillTrait",
+          "FistSpecialLandTrait",
+          "FistSpecialFireballTrait",
+          "FistAttackDefenseTrait",
+          "FistHeavyAttackTrait"
+        ]
+      }
+    },
+    {
+      "id": "GunHammerUpgrades",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "GunSlowGrenade",
+          "GunMinigunTrait",
+          "GunShotgunTrait",
+          "GunExplodingSecondaryTrait",
+          "GunGrenadeFastTrait",
+          "GunArmorPenerationTrait",
+          "GunHeavyBulletTrait",
+          "GunInfiniteAmmoTrait",
+          "GunGrenadeDropTrait",
+          "GunGrenadeClusterTrait",
+          "GunChainShotTrait",
+          "GunHomingBulletTrait"
+        ]
+      }
+    },
+    {
+      "id": "WeaponClears",
+      "requirements": {
+        "RequiredClearsWithWeapons": {
+          "Names": [
+            "SwordWeapon",
+            "SpearWeapon",
+            "ShieldWeapon",
+            "BowWeapon",
+            "FistWeapon",
+            "GunWeapon"
+          ]
+        }
+      }
+    },
+    {
+      "id": "WeaponAspects",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "SwordCriticalParryTrait",
+          "DislodgeAmmoTrait",
+          "BowLoadAmmoTrait",
+          "BowMarkHomingTrait",
+          "SpearTeleportTrait",
+          "SpearWeaveTrait",
+          "ShieldTwoShieldTrait",
+          "ShieldRushBonusProjectileTrait",
+          "FistVacuumTrait",
+          "FistWeaveTrait",
+          "GunManualReloadTrait",
+          "GunGrenadeSelfEmpowerTrait"
+        ]
+      }
+    },
+    {
+      "id": "PactUpgrades",
+      "requirements": {
+        "RequiredClearedWithMetaUpgrades": [
+          "EnemyDamageShrineUpgrade",
+          "HealingReductionShrineUpgrade",
+          "ShopPricesShrineUpgrade",
+          "EnemyCountShrineUpgrade",
+          "BossDifficultyShrineUpgrade",
+          "EnemyHealthShrineUpgrade",
+          "EnemyEliteShrineUpgrade",
+          "MinibossCountShrineUpgrade",
+          "ForceSellShrineUpgrade",
+          "EnemySpeedShrineUpgrade",
+          "TrapDamageShrineUpgrade",
+          "MetaUpgradeStrikeThroughShrineUpgrade",
+          "EnemyShieldShrineUpgrade",
+          "ReducedLootChoicesShrineUpgrade",
+          "BiomeSpeedShrineUpgrade"
+        ]
+      }
+    },
+    {
+      "id": "EliteAttributeKills",
+      "requirements": {
+        "RequiredEliteAttributeKills": {
+          "Beams": 1,
+          "Blink": 1,
+          "DeathSpreadHitShields": 1,
+          "Disguise": 1,
+          "ExtraDamage": 1,
+          "Frenzy": 1,
+          "HeavyArmor": 1,
+          "Homing": 1,
+          "Molten": 1,
+          "MultiEgg": 1,
+          "Vacuuming": 1
+        }
+      }
+    },
+    {
+      "id": "MiniBossKills",
+      "requirements": {
+        "RequiredKills": {
+          "BloodlessGrenadierElite": 1,
+          "CrusherUnitElite": 1,
+          "FlurrySpawnerElite": 1,
+          "HeavyRangedForkedMiniboss": 1,
+          "HeavyRangedSplitterMiniboss": 1,
+          "HitAndRunUnitElite": 1,
+          "RatThugMiniboss": 1,
+          "SatyrRangedMiniboss": 1,
+          "ShieldRangedElite": 1,
+          "SpreadShotUnitMiniboss": 1,
+          "ThiefImpulseMineLayerMiniboss": 1,
+          "WretchAssassinMiniboss": 1
+        }
+      }
+    },
+    {
+      "id": "CosmeticsSmall",
+      "requirements": {
+        "RequiredNumCosmeticsMin": 37
+      }
+    },
+    {
+      "id": "CodexSmall",
+      "requirements": {
+        "RequiredCodexEntriesMin": 70
+      }
+    },
+    {
+      "id": "WellShopItems",
+      "requirements": {
+        "RequiredMinItemInteractions": {
+          "DamageSelfDrop": 1,
+          "EmptyMaxHealthDrop": 1,
+          "GemDropRange": 1,
+          "HealDropRange": 1,
+          "KeepsakeChargeDrop": 1,
+          "LastStandDrop": 1,
+          "MetaDropRange": 1,
+          "RandomStoreItem": 1
+        },
+        "RequiredTraitsTaken": [
+          "TemporaryDoorHealTrait",
+          "TemporaryWeaponLifeOnKillTrait",
+          "TemporaryImprovedWeaponTrait",
+          "TemporaryMoreAmmoTrait",
+          "TemporaryImprovedRangedTrait",
+          "TemporaryMoveSpeedTrait",
+          "TemporaryBoonRarityTrait",
+          "TemporaryLastStandHealTrait",
+          "TemporaryArmorDamageTrait",
+          "TemporaryAlphaStrikeTrait",
+          "TemporaryBackstabTrait",
+          "TemporaryImprovedSecondaryTrait",
+          "TemporaryImprovedTrapDamageTrait",
+          "TemporaryPreloadSuperGenerationTrait",
+          "TemporaryForcedSecretDoorTrait",
+          "TemporaryForcedChallengeSwitchTrait",
+          "TemporaryForcedFishingPointTrait",
+          "TemporaryBlockExplodingChariotsTrait"
+        ]
+      }
+    },
+    {
+      "id": "MirrorUpgrades",
+      "requirements": {
+        "RequiredClearedWithMetaUpgrades": [
+          "BackstabMetaUpgrade",
+          "FirstStrikeMetaUpgrade",
+          "DoorHealMetaUpgrade",
+          "DarknessHealMetaUpgrade",
+          "ExtraChanceMetaUpgrade",
+          "ExtraChanceReplenishMetaUpgrade",
+          "StaminaMetaUpgrade",
+          "PerfectDashMetaUpgrade",
+          "StoredAmmoVulnerabilityMetaUpgrade",
+          "StoredAmmoSlowMetaUpgrade",
+          "AmmoMetaUpgrade",
+          "ReloadAmmoMetaUpgrade",
+          "MoneyMetaUpgrade",
+          "InterestMetaUpgrade",
+          "HealthMetaUpgrade",
+          "HighHealthDamageMetaUpgrade",
+          "VulnerabilityEffectBonusMetaUpgrade",
+          "GodEnhancementMetaUpgrade",
+          "RareBoonDropMetaUpgrade",
+          "DuoRarityBoonDropMetaUpgrade",
+          "EpicBoonDropMetaUpgrade",
+          "RunProgressRewardMetaUpgrade",
+          "RerollMetaUpgrade",
+          "RerollPanelMetaUpgrade"
+        ]
+      }
+    },
+    {
+      "id": "KeepsakesQuest",
+      "requirements": {
+        "RequiredTraitsTaken": [
+          "MaxHealthKeepsakeTrait",
+          "DirectionalArmorTrait",
+          "BackstabAlphaStrikeTrait",
+          "BonusMoneyTrait",
+          "LifeOnUrnTrait",
+          "ReincarnationTrait",
+          "ShopDurationTrait",
+          "VanillaTrait",
+          "ShieldAfterHitTrait",
+          "DistanceDamageTrait",
+          "ShieldBossTrait",
+          "PerfectClearDamageBonusTrait",
+          "LowHealthDamageTrait",
+          "ForceAthenaBoonTrait",
+          "ForceAphroditeBoonTrait",
+          "ForceArtemisBoonTrait",
+          "ForceZeusBoonTrait",
+          "ForcePoseidonBoonTrait",
+          "ForceAresBoonTrait",
+          "ForceDionysusBoonTrait",
+          "ForceDemeterBoonTrait",
+          "FastClearDodgeBonusTrait",
+          "ChaosBoonTrait"
+        ]
+      }
+    },
+    {
+      "id": "PoseidonFish",
+      "requirements": {
+        "RequiredTextLines": [
+          "PoseidonFishQuestComplete"
+        ]
+      }
+    },
+    {
+      "id": "MusicLessons",
+      "requirements": {
+        "RequiredTextLines": [
+          "OrpheusMusicProgress04"
+        ]
+      }
+    },
+    {
+      "id": "FirstSkellyStatue",
+      "requirements": {
+        "RequiredTextLines": [
+          "TrophyQuest_BronzeUnlocked_01"
+        ]
+      }
+    }
+  ],
+  "hammers": [
+    "SwordTwoComboTrait",
+    "SwordSecondaryAreaDamageTrait",
+    "SwordHeavySecondStrikeTrait",
+    "SwordThrustWaveTrait",
+    "SwordSecondaryDoubleAttackTrait",
+    "SwordHealthBufferDamageTrait",
+    "SwordDoubleDashAttackTrait",
+    "SwordCriticalTrait",
+    "SwordBackstabTrait",
+    "SwordCursedLifeStealTrait",
+    "SwordGoldDamageTrait",
+    "SwordBlinkTrait",
+    "BowDoubleShotTrait",
+    "BowLongRangeDamageTrait",
+    "BowSlowChargeDamageTrait",
+    "BowTapFireTrait",
+    "BowPenetrationTrait",
+    "BowPowerShotTrait",
+    "BowSecondaryBarrageTrait",
+    "BowTripleShotTrait",
+    "BowSecondaryFocusedFireTrait",
+    "BowChainShotTrait",
+    "BowCloseAttackTrait",
+    "BowConsecutiveBarrageTrait",
+    "ShieldDashAOETrait",
+    "ShieldRushProjectileTrait",
+    "ShieldThrowFastTrait",
+    "ShieldThrowCatchExplode",
+    "ShieldChargeHealthBufferTrait",
+    "ShieldChargeSpeedTrait",
+    "ShieldBashDamageTrait",
+    "ShieldPerfectRushTrait",
+    "ShieldThrowElectiveCharge",
+    "ShieldThrowEmpowerTrait",
+    "ShieldBlockEmpowerTrait",
+    "ShieldThrowRushTrait",
+    "SpearReachAttack",
+    "SpearAutoAttack",
+    "SpearThrowExplode",
+    "SpearThrowBounce",
+    "SpearThrowPenetrate",
+    "SpearThrowCritical",
+    "SpearSpinDamageRadius",
+    "SpearSpinChargeLevelTime",
+    "SpearDashMultiStrike",
+    "SpearThrowElectiveCharge",
+    "SpearSpinChargeAreaDamageTrait",
+    "SpearAttackPhalanxTrait",
+    "GunSlowGrenade",
+    "GunMinigunTrait",
+    "GunShotgunTrait",
+    "GunExplodingSecondaryTrait",
+    "GunGrenadeFastTrait",
+    "GunArmorPenerationTrait",
+    "GunInfiniteAmmoTrait",
+    "GunGrenadeClusterTrait",
+    "GunGrenadeDropTrait",
+    "GunHeavyBulletTrait",
+    "GunChainShotTrait",
+    "GunHomingBulletTrait",
+    "FistReachAttackTrait",
+    "FistDashAttackHealthBufferTrait",
+    "FistTeleportSpecialTrait",
+    "FistDoubleDashSpecialTrait",
+    "FistChargeSpecialTrait",
+    "FistKillTrait",
+    "FistSpecialLandTrait",
+    "FistAttackFinisherTrait",
+    "FistConsecutiveAttackTrait",
+    "FistSpecialFireballTrait",
+    "FistAttackDefenseTrait",
+    "FistHeavyAttackTrait",
+    "SpearSpinTravelDurationTrait",
+    "SwordConsecrationBoostTrait",
+    "BowBondBoostTrait",
+    "ShieldLoadAmmoBoostTrait",
+    "FistDetonateBoostTrait",
+    "GunLoadedGrenadeBoostTrait",
+    "GunLoadedGrenadeLaserTrait",
+    "GunLoadedGrenadeSpeedTrait",
+    "GunLoadedGrenadeWideTrait",
+    "GunLoadedGrenadeInfiniteAmmoTrait"
   ]
 }

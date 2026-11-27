@@ -33,7 +33,7 @@ var gameSlots = map[string]string{
 }
 
 // Load order matters: helper tables first, then the data we read.
-var sourceFiles = []string{"WeaponSets.lua", "TraitData.lua", "LootData.lua", "AchievementData.lua", "WeaponUpgradeData.lua", "GiftData.lua"}
+var sourceFiles = []string{"WeaponSets.lua", "TraitData.lua", "LootData.lua", "AchievementData.lua", "WeaponUpgradeData.lua", "GiftData.lua", "QuestData.lua"}
 
 type Boon struct {
 	ID   string   `json:"id"`
@@ -54,6 +54,14 @@ type Boon struct {
 	// TextOverrides: while holding the key (an aspect), the game shows this
 	// boon under another text entry (Flood Shot -> Flood Flare under Beowulf).
 	TextOverrides map[string]string `json:"textOverrides,omitempty"`
+	// MaxChambers: keepsakes reach max level after this many chambers (sum of ChamberThresholds).
+	MaxChambers int `json:"maxChambers,omitempty"`
+}
+
+// Quest is a Fated List prophecy; requirements are checked against a save file.
+type Quest struct {
+	ID           string         `json:"id"`
+	Requirements map[string]any `json:"requirements,omitempty"`
 }
 
 type Achievement struct {
@@ -73,6 +81,10 @@ type Dataset struct {
 	// Keepsakes in the game's rack order; each is also a boon of kind keepsake.
 	Keepsakes    []string      `json:"keepsakes"`
 	Achievements []Achievement `json:"achievements"`
+	// Quests: the Fated List in the game's order.
+	Quests []Quest `json:"quests"`
+	// Hammers: Daedalus hammer trait IDs (for "unique hammers taken").
+	Hammers []string `json:"hammers"`
 }
 
 func main() {
@@ -82,7 +94,7 @@ func main() {
 	flag.Parse()
 
 	scripts := filepath.Join(*gameDir, "Scripts")
-	g, err := loadGlobals(scripts, sourceFiles, []string{"TraitData", "LootData", "GameData", "WeaponUpgradeData", "GiftOrdering"})
+	g, err := loadGlobals(scripts, sourceFiles, []string{"TraitData", "LootData", "GameData", "WeaponUpgradeData", "GiftOrdering", "QuestData", "QuestOrderData"})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -96,6 +108,11 @@ func main() {
 	keepsakes := buildKeepsakes(g["GiftOrdering"])
 	boons, w := buildBoons(traits, loot, weapons, keepsakes)
 	warnings = append(warnings, w...)
+	questData, _ := g["QuestData"].(map[string]any)
+	quests, w := buildQuests(questData, g["QuestOrderData"])
+	warnings = append(warnings, w...)
+	hammerLoot, _ := loot["WeaponUpgrade"].(map[string]any)
+	hammers := strings_(hammerLoot["Traits"])
 	ds := Dataset{
 		Game:         "hades1",
 		Sources:      hashes(scripts),
@@ -103,6 +120,8 @@ func main() {
 		Boons:        boons,
 		Keepsakes:    keepsakes,
 		Achievements: buildAchievements(achData),
+		Quests:       quests,
+		Hammers:      hammers,
 	}
 
 	text, err := loadHelpText(filepath.Join(*gameDir, "en", "HelpText.en.sjson"))
@@ -129,6 +148,13 @@ func main() {
 	}
 	for _, w := range weapons {
 		boonText[w.ID] = text[w.ID]
+	}
+	// Names for progress: quests, hammers and anything requirements list
+	// (fish, rooms, NPC text lines...) that has an entry in HelpText.
+	for _, id := range progressIDs(ds) {
+		if t, ok := text[id]; ok {
+			boonText[id] = t
+		}
 	}
 	// Some names are keyword references, e.g. "{$Keywords.AmmoSupply}" -> "Infernal Soul".
 	for id, t := range boonText {
@@ -258,7 +284,12 @@ func buildBoons(traits, loot map[string]any, weapons []Weapon, keepsakes []strin
 			continue
 		}
 		icon, _ := t["Icon"].(string)
-		byID[id] = &Boon{ID: id, Kind: "keepsake", Gods: []string{}, Icon: icon}
+		max := 0
+		for _, v := range inherited(traits, id, "ChamberThresholds") {
+			n, _ := v.(float64)
+			max += int(n)
+		}
+		byID[id] = &Boon{ID: id, Kind: "keepsake", Gods: []string{}, Icon: icon, MaxChambers: max}
 	}
 
 	var calls []string
@@ -427,4 +458,69 @@ func must(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+// inherited reads a list field from a trait, following InheritFrom like the game does.
+func inherited(traits map[string]any, id, key string) []any {
+	t, _ := traits[id].(map[string]any)
+	if t == nil {
+		return nil
+	}
+	if v, ok := t[key].([]any); ok {
+		return v
+	}
+	for _, parent := range strings_(t["InheritFrom"]) {
+		if v := inherited(traits, parent, key); v != nil {
+			return v
+		}
+	}
+	return nil
+}
+
+// buildQuests keeps QuestOrderData's order (the Fated List as shown in game).
+func buildQuests(data map[string]any, order any) ([]Quest, []string) {
+	var out []Quest
+	var warnings []string
+	for _, id := range strings_(order) {
+		q, _ := data[id].(map[string]any)
+		if q == nil {
+			warnings = append(warnings, "quest in QuestOrderData but not QuestData: "+id)
+			continue
+		}
+		req, _ := q["CompleteGameStateRequirements"].(map[string]any)
+		out = append(out, Quest{ID: id, Requirements: req})
+	}
+	return out, warnings
+}
+
+// progressIDs: every string ID a quest or achievement requirement mentions, plus quests and hammers.
+func progressIDs(ds Dataset) []string {
+	seen := map[string]bool{}
+	var walk func(v any)
+	walk = func(v any) {
+		switch v := v.(type) {
+		case string:
+			seen[v] = true
+		case []any:
+			for _, x := range v {
+				walk(x)
+			}
+		case map[string]any:
+			for k, x := range v {
+				seen[k] = true
+				walk(x)
+			}
+		}
+	}
+	for _, q := range ds.Quests {
+		seen[q.ID] = true
+		walk(q.Requirements)
+	}
+	for _, a := range ds.Achievements {
+		walk(a.Requirements)
+	}
+	for _, h := range ds.Hammers {
+		seen[h] = true
+	}
+	return sortedKeys(seen)
 }

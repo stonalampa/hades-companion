@@ -68,6 +68,19 @@ func main() {
 		}
 		writeJSON(w, st)
 	})
+	mux.HandleFunc("PUT /api/save", func(w http.ResponseWriter, r *http.Request) {
+		var in Save
+		if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 1<<20)).Decode(&in); err != nil || in.ImportedAt == "" {
+			http.Error(w, "want {importedAt, facts, progress}", http.StatusBadRequest)
+			return
+		}
+		st, err := store.Update(func(st *State) { st.Save = &in })
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		writeJSON(w, st)
+	})
 	mux.HandleFunc("POST /api/steam/sync", func(w http.ResponseWriter, r *http.Request) {
 		if steam == nil {
 			http.Error(w, "Steam sync not configured (STEAM_API_KEY, STEAM_ID)", http.StatusNotFound)

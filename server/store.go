@@ -32,7 +32,34 @@ type State struct {
 	Achievements      []string `json:"achievements"`
 	SteamAchievements []string `json:"steamAchievements,omitempty"`
 	SteamSyncedAt     string   `json:"steamSyncedAt,omitempty"`
-	UpdatedAt         string   `json:"updatedAt,omitempty"`
+	// Save: facts from an imported save file, extracted in the browser.
+	Save      *Save  `json:"save,omitempty"`
+	UpdatedAt string `json:"updatedAt,omitempty"`
+}
+
+// Save mirrors SaveSnapshot in web/src/save/useSave.ts. Facts are opaque here
+// except the quest status; Progress is the frontend's evaluation as text, so
+// the progress rules live in one place (web/src/core/progress.ts).
+type Save struct {
+	ImportedAt string                  `json:"importedAt"`
+	Facts      json.RawMessage         `json:"facts"`
+	Progress   map[string]SaveProgress `json:"progress,omitempty"`
+}
+
+type SaveProgress struct {
+	Done    bool   `json:"done"`
+	Summary string `json:"summary,omitempty"`
+}
+
+// quests: Fated List status from the save (Unlocked | Complete | CashedOut).
+func (s *Save) quests() map[string]string {
+	var f struct {
+		Quests map[string]string `json:"quests"`
+	}
+	if s != nil {
+		_ = json.Unmarshal(s.Facts, &f)
+	}
+	return f.Quests
 }
 
 type Store struct {
@@ -87,9 +114,17 @@ func (s *Store) Update(change func(*State)) (State, error) {
 	return st, nil
 }
 
-// done: achievements earned by either source.
+// done: achievements earned by any source: manual, Steam, or proven by the save.
 func (st State) done() set {
-	return setOf(append(append([]string{}, st.Achievements...), st.SteamAchievements...)...)
+	d := setOf(append(append([]string{}, st.Achievements...), st.SteamAchievements...)...)
+	if st.Save != nil {
+		for id, p := range st.Save.Progress {
+			if p.Done {
+				d[id] = true
+			}
+		}
+	}
+	return d
 }
 
 // owned is the build plus the aspect and keepsake, which count as held.

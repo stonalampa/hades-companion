@@ -101,6 +101,8 @@ Each Duo appears under both gods' `LootData` (e.g. `TriggerCurseTrait` at two pl
 
 9. ~~Keepsakes + god limit~~ ✓ (2026-11-27) — importer reads `GiftData.lua` (`GiftOrdering`): 25 rack keepsakes, companions (`*AssistTrait`) left out. Keepsake picker next to the aspect; the equipped one counts as held. Four-god limit from `ReachedMaxGods` (counts `CurrentRun.LootTypeHistory` gods with `GodLoot = true`; Hermes is `GodLoot = false`). Not modelled: Sigil of the Dead's Hades' Aid call and its interaction with Olympian calls.
 
+10. ~~Save import~~ ✓ (2026-11-27) — Hades I save layout, verified on a real v16 save: `"SGB1"`, u32 checksum, u32 version, u64 timestamp (Unix s), location (u32-length string), u32 runs, u32 meta points, u32 shrine points, u8 god mode, u8 hell mode, u32 count + strings (Lua keys), current map, next map, u32 length + LZ4 **block** (no frame) → luabins. Luabins: u8 value count; tags `-` nil, `0`/`1` bool, `N` f64 LE, `S` u32 length + bytes, `T` i32 array size + i32 hash size + key/value pairs. Top level is one table of saved globals: `GameState`, `CurrentRun`, `TextLinesRecord`, `SpeechRecord`, `CodexStatus`, … (3.2 MB uncompressed). Progress facts: `GameState.TraitsTaken`, `QuestStatus`, `KeepsakeChambers` (max at sum of `ChamberThresholds` = 75), `WeaponUnlocks` (aspect levels, 5 = max), `TotalCaughtFish`, `EnemyKills`, `NPCInteractions`, `ClearedWithMetaUpgrades`, … Importer now also exports the Fated List (`QuestData` in `QuestOrderData` order, 58) and hammers (`LootData.WeaponUpgrade.Traits`, 82). Not tracked: in-run checks (RequiresRunCleared, RequiredTrait…), and the 7 code-checked achievements.
+
 ## 6. Open questions
 
 - Exact game build the dataset was generated from (sources are pinned by sha256 in `dataset.json`).

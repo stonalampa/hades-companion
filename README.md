@@ -20,7 +20,8 @@ Wikis tell you what a boon does; they don't tell you what *your* run can still r
 - **How to get it** — prerequisite tree (all of / one of), nested prerequisites, "boons away" count, what a boon leads to, exclusions ("never offered with Aspect of Beowulf"), Mirror of Night requirements.
 - **Aspect-aware rules** — Beowulf/Hera cast variants, aspect exclusions and renames (Flood Shot is *Flood Flare* under Beowulf), the equipped keepsake counts as held (Lambent Plume satisfies Hermes boons, Conch Shell counts toward Huge Catch), and the four-god limit: once a run has four Olympians, boons of other gods (Hermes excepted) are hidden.
 - **Achievements** — checklist with filters, "earned in a run" scope, and which achievements the current run counts toward. Optional Steam sync.
-- **MCP server** — read-only tools: `get_current_run`, `get_boon`, `search_boons`, `list_achievements`.
+- **Save import** — drop `Profile1.sav` (Windows: `Documents\Saved Games\Hades`) to see exactly what each achievement and Fated List prophecy still needs: the Artemis boons you never took, keepsakes not at max level, Duo boons left. Parsed in the browser; only progress facts are kept.
+- **MCP server** — read-only tools: `get_current_run`, `get_boon`, `search_boons`, `list_achievements`, `list_prophecies`.
 - Local-first, no accounts, no ads, no analytics.
 
 ## How it works

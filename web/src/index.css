@@ -212,3 +212,17 @@ h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; colo
 .small-btn { padding: 1px 10px; font-size: 0.8rem; }
 .tag.steam { color: #66c0f4; border-color: #2a475e; }
 .ach-list input:disabled { opacity: 0.8; cursor: default; }
+
+/* Save import and progress */
+.save-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 10px;
+  padding: 6px 10px; border: 1px dashed var(--line); border-radius: 6px;
+}
+.save-bar.over { border-color: var(--accent); background: #2a2216; }
+.parts { display: grid; gap: 2px; margin: 4px 0 0; }
+.parts li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; border: none; }
+.parts progress { width: 4rem; height: 0.45rem; accent-color: var(--accent); align-self: center; }
+.parts li.done { opacity: 0.6; }
+.quest { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; }
+.quest .mark { width: 1.1rem; text-align: center; flex-shrink: 0; }
+.ach-list li.done .quest .ach-name { color: var(--muted); }

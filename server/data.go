@@ -35,12 +35,18 @@ type Achievement struct {
 	Requirements map[string]any `json:"requirements,omitempty"`
 }
 
+// Quest is a Fated List prophecy; progress comes from the imported save.
+type Quest struct {
+	ID string `json:"id"`
+}
+
 type Dataset struct {
 	Game         string        `json:"game"`
 	Weapons      []Weapon      `json:"weapons"`
 	Boons        []Boon        `json:"boons"`
 	Keepsakes    []string      `json:"keepsakes"`
 	Achievements []Achievement `json:"achievements"`
+	Quests       []Quest       `json:"quests"`
 
 	byID    map[string]*Boon
 	unlocks map[string][]string

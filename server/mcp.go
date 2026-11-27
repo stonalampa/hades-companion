@@ -302,6 +302,7 @@ type AchRef struct {
 	Done        bool   `json:"done"`
 	FromSteam   bool   `json:"fromSteam,omitempty"`
 	CountsVia   string `json:"thisRunCountsVia,omitempty"`
+	Progress    string `json:"progress,omitempty" jsonschema:"from the imported save: counts and exactly what is still missing"`
 }
 
 type AchOut struct {
@@ -325,12 +326,65 @@ func (g *Game) achievements(in AchIn, st State) AchOut {
 		}
 		r := AchRef{ID: a.ID, Name: g.achievementName(a.ID), Description: g.achText[a.ID].Description, Scope: a.Scope,
 			Done: done[a.ID], FromSteam: contains(st.SteamAchievements, a.ID)}
+		if st.Save != nil && !done[a.ID] {
+			r.Progress = st.Save.Progress[a.ID].Summary
+		}
 		if c := countingTraits(a, owned); len(c) > 0 {
 			r.CountsVia = g.name(c[0], owned)
 		}
 		out.Achievements = append(out.Achievements, r)
 	}
 	return out
+}
+
+// ---- list_prophecies
+
+type ProphecyIn struct {
+	Filter string `json:"filter,omitempty" jsonschema:"missing (default), done or all"`
+}
+
+type ProphecyRef struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description,omitempty"`
+	Status      string `json:"status" jsonschema:"fulfilled, ready to collect, in progress, or not revealed"`
+	Progress    string `json:"progress,omitempty" jsonschema:"counts and exactly what is still missing"`
+}
+
+type ProphecyOut struct {
+	SaveImportedAt string        `json:"saveImportedAt,omitempty"`
+	Done           int           `json:"done"`
+	Total          int           `json:"total"`
+	Prophecies     []ProphecyRef `json:"prophecies"`
+}
+
+var questStatus = map[string]string{"CashedOut": "fulfilled", "Complete": "ready to collect", "Unlocked": "in progress"}
+
+func (g *Game) prophecies(in ProphecyIn, st State) (ProphecyOut, error) {
+	if st.Save == nil {
+		return ProphecyOut{}, fmt.Errorf("no save imported: the player loads Profile1.sav in the app first")
+	}
+	quests := st.Save.quests()
+	out := ProphecyOut{SaveImportedAt: st.Save.ImportedAt, Total: len(g.Quests), Prophecies: []ProphecyRef{}}
+	for _, q := range g.Quests {
+		done := quests[q.ID] == "CashedOut"
+		if done {
+			out.Done++
+		}
+		if (in.Filter == "done" && !done) || ((in.Filter == "" || in.Filter == "missing") && done) {
+			continue
+		}
+		status := questStatus[quests[q.ID]]
+		if status == "" {
+			status = "not revealed"
+		}
+		r := ProphecyRef{ID: q.ID, Name: g.name(q.ID, nil), Description: g.text[q.ID].Description, Status: status}
+		if !done {
+			r.Progress = st.Save.Progress[q.ID].Summary
+		}
+		out.Prophecies = append(out.Prophecies, r)
+	}
+	return out, nil
 }
 
 // ---- server
@@ -362,9 +416,16 @@ func newMCPServer(g *Game, store *Store) *mcp.Server {
 		})
 
 	mcp.AddTool(s, &mcp.Tool{Name: "list_achievements", Annotations: ro,
-		Description: "The player's Hades achievements with done/missing status (tracked manually or from Steam), filterable to ones earned during a run."},
+		Description: "The player's Hades achievements with done/missing status (manual, Steam or proven by the imported save), filterable to ones earned during a run. With a save imported, missing ones say exactly what is left (e.g. which keepsakes aren't maxed)."},
 		func(_ context.Context, _ *mcp.CallToolRequest, in AchIn) (*mcp.CallToolResult, AchOut, error) {
 			return nil, g.achievements(in, store.Get()), nil
+		})
+
+	mcp.AddTool(s, &mcp.Tool{Name: "list_prophecies", Annotations: ro,
+		Description: "The Fated List (prophecies) from the player's imported save: status and exactly what each still needs, e.g. which Artemis boons were never taken."},
+		func(_ context.Context, _ *mcp.CallToolRequest, in ProphecyIn) (*mcp.CallToolResult, ProphecyOut, error) {
+			out, err := g.prophecies(in, store.Get())
+			return nil, out, err
 		})
 	return s
 }
