@@ -1377,7 +1377,6 @@
         "Hermes"
       ],
       "kind": "standard",
-      "slot": "special",
       "icon": "Boon_Hermes_09",
       "excludedBy": [
         "SwordSecondaryBlinkTrait"
@@ -1409,7 +1408,6 @@
         "Hermes"
       ],
       "kind": "standard",
-      "slot": "attack",
       "icon": "Boon_Hermes_06"
     },
     {
@@ -2031,7 +2029,6 @@
         "Zeus"
       ],
       "kind": "standard",
-      "slot": "attack",
       "icon": "Boon_Zeus_01"
     },
     {
