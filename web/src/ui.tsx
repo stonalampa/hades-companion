@@ -93,15 +93,15 @@ export function CostNote({ boon }: { boon: Boon }) {
 
 /** A boon you can take right now to make progress; click = "I took it". */
 export function OptionChip({ id }: { id: BoonId }) {
-  const { owned, name, add } = useRunCtx()
+  const { owned, pool, name, add } = useRunCtx()
   const opt = byId.get(id)
-  if (!opt || !possible(opt, owned, byId)) return null
-  const blocked = ['far', 'oneAway'].includes(evaluate(opt, owned).kind)
+  if (!opt || !possible(opt, owned, byId, pool)) return null
+  const blocked = ['far', 'oneAway'].includes(evaluate(opt, owned, pool).kind)
   return (
     <button
       className={`option ${blocked ? 'blocked' : ''}`}
       onClick={() => add(id)}
-      title={blocked ? 'Has its own prerequisites' : 'I took it'}
+      title={blocked ? 'Has its own prerequisites' : opt.kind === 'keepsake' ? 'Equip it' : 'I took it'}
     >
       <BoonIcon id={id} gods={opt.gods} size={26} />
       {name(id)}

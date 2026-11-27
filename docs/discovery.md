@@ -99,6 +99,8 @@ Each Duo appears under both gods' `LootData` (e.g. `TriggerCurseTrait` at two pl
 7. ~~Server + MCP~~ ✓ — `server/` (Go, official `modelcontextprotocol/go-sdk` v1.8.0, streamable HTTP at `/mcp`). Eligibility logic ported from TS with mirrored tests. State is a JSON file (single user; SQLite only if needed). The frontend detects the server via `/api/capabilities`, pulls state on load/focus and pushes changes (debounced). Next: Docker image.
 8. ~~Steam sync~~ ✓ — `server/steam.go`: `STEAM_API_KEY` + `STEAM_ID` (SteamID64, profile URL or vanity name via `ResolveVanityURL`), `GetPlayerAchievements` for app 1145360. `POST /api/steam/sync`, throttled to one Steam call per minute (attempts, not successes). Steam unlocks are kept in `steamAchievements`, separate from manual marks; done = union. The key never appears in errors (`*url.Error` unwrapped; tested). Private game details → 403 → clear message. Tested against a fake Steam API (`-steam-api`), not yet against the real one.
 
+9. ~~Keepsakes + god limit~~ ✓ (2026-11-27) — importer reads `GiftData.lua` (`GiftOrdering`): 25 rack keepsakes, companions (`*AssistTrait`) left out. Keepsake picker next to the aspect; the equipped one counts as held. Four-god limit from `ReachedMaxGods` (counts `CurrentRun.LootTypeHistory` gods with `GodLoot = true`; Hermes is `GodLoot = false`). Not modelled: Sigil of the Dead's Hades' Aid call and its interaction with Olympian calls.
+
 ## 6. Open questions
 
 - Exact game build the dataset was generated from (sources are pinned by sha256 in `dataset.json`).

@@ -155,9 +155,13 @@ h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; colo
 .option { padding: 3px 10px 3px 6px; }
 .req-set > ul > li { padding: 4px 0; }
 
-/* Aspect picker */
-.aspect-picker { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 10px; }
-.aspect-picker select {
+/* Gods in the run (four-god limit) */
+.gods-line { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; }
+
+/* Aspect and keepsake pickers */
+.pickers { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; margin-bottom: 10px; }
+.aspect-picker, .keepsake-picker { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.aspect-picker select, .keepsake-picker select {
   font: inherit; color: var(--text); background: var(--panel);
   border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px;
 }

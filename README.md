@@ -16,9 +16,9 @@ Wikis tell you what a boon does; they don't tell you what *your* run can still r
 
 ## Features
 
-- **Current run** — fast keyboard entry (`/` to focus, Enter to add, Shift+Enter to look up), weapon and aspect picker, slot replacement with "replaces / breaks" warnings, pinned targets kept across runs.
+- **Current run** — fast keyboard entry (`/` to focus, Enter to add, Shift+Enter to look up), weapon, aspect and keepsake pickers, slot replacement with "replaces / breaks" warnings, pinned targets kept across runs.
 - **How to get it** — prerequisite tree (all of / one of), nested prerequisites, "boons away" count, what a boon leads to, exclusions ("never offered with Aspect of Beowulf"), Mirror of Night requirements.
-- **Aspect-aware rules** — Beowulf/Hera cast variants, aspect exclusions and renames (Flood Shot is *Flood Flare* under Beowulf), keepsakes that count as prerequisites (Conch Shell, Lambent Plume).
+- **Aspect-aware rules** — Beowulf/Hera cast variants, aspect exclusions and renames (Flood Shot is *Flood Flare* under Beowulf), the equipped keepsake counts as held (Lambent Plume satisfies Hermes boons, Conch Shell counts toward Huge Catch), and the four-god limit: once a run has four Olympians, boons of other gods (Hermes excepted) are hidden.
 - **Achievements** — checklist with filters, "earned in a run" scope, and which achievements the current run counts toward. Optional Steam sync.
 - **MCP server** — read-only tools: `get_current_run`, `get_boon`, `search_boons`, `list_achievements`.
 - Local-first, no accounts, no ads, no analytics.
