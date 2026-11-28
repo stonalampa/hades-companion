@@ -21,6 +21,16 @@ export interface SaveSync {
 
 export type SyncStatus = 'local' | 'synced' | 'error'
 
+/**
+ * Should a pull replace local state? Not while local changes are still
+ * unpushed (the debounced PUT will send them): otherwise a focus event right
+ * after a change — e.g. closing the "New run?" confirm dialog — would bring
+ * back the old run. `lastSynced` is null before the first sync: server wins.
+ */
+export function serverWins(local: string, lastSynced: string | null): boolean {
+  return lastSynced === null || local === lastSynced
+}
+
 export interface SteamSync {
   enabled: boolean
   /** Achievements Steam says are unlocked; shown as done, separate from manual marks. */
@@ -52,6 +62,10 @@ export function useServerSync(
     syncing: false,
   })
   const last = useRef<string | null>(null) // last state known to match the server
+  const local = useRef('') // current local state, same shape as `last`
+  useEffect(() => {
+    local.current = JSON.stringify({ run, achievements })
+  }, [run, achievements])
   const lastSave = useRef<string | undefined>(undefined) // importedAt known to the server
   const localSave = useRef(save.snapshot)
   useEffect(() => {
@@ -80,12 +94,12 @@ export function useServerSync(
       if (!res.ok) throw new Error(res.statusText)
       const st = (await res.json()) as ServerState
       if (!alive) return
-      if (st.updatedAt) {
+      if (st.updatedAt && serverWins(local.current, last.current)) {
         last.current = JSON.stringify({ run: st.run, achievements: st.achievements })
         replaceRun(st.run)
         replaceAchievements(st.achievements)
-        applySteam(st)
       }
+      if (st.updatedAt) applySteam(st)
       if (st.save) {
         lastSave.current = st.save.importedAt
         const mine = localSave.current?.importedAt
